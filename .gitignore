@@ -1,0 +1,8 @@
+node_modules/*
+appdata
+appdata/*
+client/appdata
+client/appdata/*
+server/cli
+server/cli/*
+server/config/*

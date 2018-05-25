@@ -1,0 +1,27 @@
+{
+  "name": "eldis-webapp",
+  "author": "Eldis Rice",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node www.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.2",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.4",
+    "dateformat": "^3.0.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "jwt-simple": "^0.5.1",
+    "morgan": "~1.9.0",
+    "mysql": "^2.15.0",
+    "serve-favicon": "^2.5.0"
+  },
+  "paths": {
+    "client": "../client/"
+  }
+}
