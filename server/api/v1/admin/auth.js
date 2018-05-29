@@ -6,8 +6,7 @@ module.exports = function(db){
     
     return {
         Login: Login,
-        Register: Register,
-        GetUserApps: GetUserApps
+        Register: Register
     };
     
     function Login(member) {
@@ -18,21 +17,21 @@ module.exports = function(db){
 					reject(validObj);
 				}
 				else {
-					if (validObj.result.islockedout === 1) {
+					if (validObj.result.access_level === 0) {
+						response.error = {};
 						response.error.message = "Your account is currently locked out.";
 						reject(response);
 					}
-					if (validObj.result.isapproved === 0) {
+					if (validObj.result.access_level === 1) {
+						response.error = {};
 						response.error.message = "Your account has not been approved.";
 						reject(response);
 					}
-					if (validObj.result.islockedout === 0 && validObj.result.isapproved === 1) {
+					if (validObj.result.access_level === 3) {
 						response.result = {
-							user_id: validObj.result.user_id,
-							changepassword: validObj.result.changepassword,
-							emailaddress: member.username,
-							firstname: validObj.result.firstname,
-							lastname: validObj.result.lastname,
+							user_id: validObj.result.id,
+							emailaddress: member.email_address,
+							username: validObj.result.username,
 							token: validObj.result.token
 						};
 					}
@@ -43,15 +42,21 @@ module.exports = function(db){
 		return promise;
     }
 	
-    function Validate(username, password) {
+    function Validate(emailaddress, username, password) {
+		emailaddress = (emailaddress === undefined) ? null: emailaddress;
+		username = (username === undefined) ? null : username;
 		let promise = new Promise((resolve, reject) => {
+			if (!emailaddress && !username) {
+				reject("Missing email address or username.");
+			}
 			let response = {};
-			let sql =  "SELECT id AS uid, emailaddress, firstname, lastname, ";
-				sql += "isapproved, islockedout, `password`, passwordchange ";
-				sql += "FROM member ";
-				sql += "WHERE emailaddress = ?;";
-			db.query(sql, [username], function(error, result){
+			let sql =  "SELECT `id`, `emailaddress`, `username`, ";
+				sql += "`password`, `access_level`, `is_logged_in` ";
+				sql += "FROM `authentication` ";
+				sql += "WHERE `emailaddress` = ? OR `username` = ?;";
+			db.query(sql, [email_address, username], function(error, result){
 				if (error){
+					response.error = {};
 					response.error.message = "Query error: " + error;
 					reject(response);
 				}
@@ -60,14 +65,12 @@ module.exports = function(db){
 						if (bcrypt.compareSync(password, result[0].password)) {
 							
 							response.result = {
-								user_id	: result[0].uid,
-								emailaddress : result[0].emailaddress,
-								isapproved: result[0].isapproved,
-								islockedout: result[0].islockedout,
-								changepassword: result[0].requirespasswordchange,
-								firstname: result[0].firstname,
-								lastname: result[0].lastname,
-								token: (result[0].isapproved == 1) ? genToken(result[0].uid) : null
+								id	: result[0].id,
+								email_address : result[0].email_address,
+								access_level: result[0].access_level,
+								username: result[0].username,
+								is_logged_in: result[0].is_logged_in,
+								token: (result[0].access_level == 3) ? genToken(result[0].id) : null
 							};
 							
 							UpdateLastLogin(result[0].accessid).then((update) => {
@@ -81,6 +84,7 @@ module.exports = function(db){
 							
 						}
 						else {
+							response.error = {};
 							response.error.message = "Your password is incorrect.";
 							reject(response);
 						}
@@ -99,11 +103,12 @@ module.exports = function(db){
 		
 		let promise = new Promise((resolve, reject) => {
 			let now = dateFormat(new Date(), "m/d/yyyy h:MM:ss TT");
-			let sql =  "UPDATE member ";
-				sql += "SET lastlogin = ? ";
+			let sql =  "UPDATE authentication ";
+				sql += "SET date_last_log = ? ";
 				sql += "WHERE id = ?;";
 			db.query(sql, [now, id], function(error) {
 				if (error) {
+					response.error = {};
 					response.error.message = "Auth.validate() sql2 MySql failure.";
 					reject(response);
 				}
@@ -118,23 +123,23 @@ module.exports = function(db){
 	
     function Register(member) {
 		let promise = new Promise((resolve, reject) => {
+			console.log(member);
 			let response = {};
             bcrypt.genSalt(10, function(error, salt) {
                 bcrypt.hash(member.password, salt, function(error, hash) {
                     let insert = {
                         password: hash,
-                        emailaddress: member.emailaddress,
-                        firstname: member.firstname,
-                        lastname: member.lastname,
-                        isapproved: true,
-                        islockedout: false,
+                        email_address: member.email_address,
+                        username: member.username,
+                        access_level: 1,
                         reg_code: salt
                     };
-                    var sql = "INSERT INTO member SET ?;";
+                    var sql = "INSERT INTO authentication SET ?;";
                     try {
                         db.query(sql, insert, function(error, result) {
                             if (error) {
-                                response.error.message = "Auth.register() SQL error: " + error;
+								response.error = {};
+                                response.error.message = "Auth.Register() SQL error: " + error;
 								reject(response);
                             }
                             else {
@@ -144,7 +149,8 @@ module.exports = function(db){
                         });
                     }
                     catch (error) {
-                        response.error.message = "Auth.register() MySQL error.";
+						response.error = {};
+                        response.error.message = "Auth.Register() MySQL error.";
                         reject(response);
                     }
                 });
@@ -153,34 +159,6 @@ module.exports = function(db){
 		return promise;
     }
 	
-    function GetUserApps(uid) {
-		let promise = new Promise((resolve, reject) => {
-			let response = {};
-            let sql =  "SELECT memberapplications.appid, application.appname, ";
-                sql += "application.imageurl, application.script ";
-                sql += "FROM memberapplications ";
-                sql += "INNER JOIN application ON application.id = memberapplications.appid ";
-                sql += "WHERE memberapplications.memberid=? ";
-                sql += "ORDER BY application.appname;";
-            try {
-                db.query(sql, [uid], function(error, result){
-                    if (error) {
-                        response.error.message = "Auth.getUserApps() sql2 MySql failure.";
-						reject(response);
-                    }
-                    else {
-                        response.result = result;
-						resolve(response);
-                    }
-                });
-            }
-            catch (error) {
-                response.error.message = "Auth.getUserApps() MySql failure.";
-                reject(response);
-            }
-		});
-		return promise;
-    }
 };
 // private method
 function genToken(uid) {
