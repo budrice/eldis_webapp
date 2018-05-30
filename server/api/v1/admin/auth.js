@@ -5,14 +5,19 @@ let dateFormat = require('dateformat');
 module.exports = function(db){
     
     return {
-        Login: Login,
-        Register: Register
+        Login: login,
+        Register: register,
+		GetUser: getUser
     };
     
-    function Login(member) {
+    function login(member) {
+		
+		console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+		console.log(member);
+		console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
 		let promise = new Promise((resolve, reject) => {
 			let response = {};
-			Validate(member.username, member.password).then((validObj) => {
+			validate(member.username, member.password).then((validObj) => {
 				if (validObj.error) {
 					reject(validObj);
 				}
@@ -42,7 +47,7 @@ module.exports = function(db){
 		return promise;
     }
 	
-    function Validate(emailaddress, username, password) {
+    function validate(emailaddress, username, password) {
 		emailaddress = (emailaddress === undefined) ? null: emailaddress;
 		username = (username === undefined) ? null : username;
 		let promise = new Promise((resolve, reject) => {
@@ -73,7 +78,7 @@ module.exports = function(db){
 								token: (result[0].access_level == 3) ? genToken(result[0].id) : null
 							};
 							
-							UpdateLastLogin(result[0].accessid).then((update) => {
+							updateLastLogin(result[0].id).then((update) => {
 								if (update.error) {
 									reject(update);
 								}
@@ -90,6 +95,7 @@ module.exports = function(db){
 						}
 					}
 					else {
+						response.error = {};
 						response.error.message = "Your username is incorrect.";
 						reject(response);
 					}
@@ -99,7 +105,7 @@ module.exports = function(db){
 		return promise;
     }
 	
-	function UpdateLastLogin(id) {
+	function updateLastLogin(id) {
 		
 		let promise = new Promise((resolve, reject) => {
 			let now = dateFormat(new Date(), "m/d/yyyy h:MM:ss TT");
@@ -121,7 +127,7 @@ module.exports = function(db){
 	}
 	
 	
-    function Register(member) {
+    function register(member) {
 		let promise = new Promise((resolve, reject) => {
 			console.log(member);
 			let response = {};
@@ -158,6 +164,21 @@ module.exports = function(db){
 		});
 		return promise;
     }
+	
+	function getUser(username) {
+		let promise = new Promise((resolve, reject)=> {
+			let sql = "SELECT * FROM authentication WHERE `username` = ?;";
+			db.query(sql, [username], (error, result)=> {
+				if (error) {
+					reject(error);
+				}
+				else {
+					resolve(result);
+				}
+			});
+		});
+		return promise;
+	}
 	
 };
 // private method

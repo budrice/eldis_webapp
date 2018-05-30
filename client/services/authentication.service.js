@@ -11,6 +11,7 @@
 		return {
 			Register: register,
 			Login: login,
+			GetUser: getUser,
 			IsLoggedIn: isLoggedIn,
 			GetUserToken: getUserToken
 		};
@@ -31,43 +32,58 @@
 		}
 		
 		function login(dataObj) {
-            var deferred = $q.defer();
-            $http({
-                method: 'POST',
-                url: '/api/v1/admin/login',
-                data: dataObj
-            }).then(function(response) {
-                if (response.data.error) {
-                    deferred.resolve(response.data);
-                }
-                else {
-                    var USER_TOKEN = response.data.result.token;
-                    window.sessionStorage.setItem('USER_TOKEN', JSON.stringify(USER_TOKEN ));
-                    deferred.resolve(response.data);
-                }
-            }, function(response) {
-                deferred.reject(response.data);
-            });
-            return deferred.promise;
+            let promise = new Promise((resolve, reject)=> {
+				$http({
+					method: 'POST',
+					url: '/api/v1/admin/login',
+					data: dataObj
+				}).then((result)=> {
+					if (result.error) {
+						reject(result);
+					}
+					else {
+						let user_token = result.token;
+						window.sessionStorage.setItem('USER_TOKEN', JSON.stringify(user_token));
+						resolve(result);
+					}
+				}, (error)=> {
+					reject(error);
+				});
+			});
+            return promise;
         }
 		
-		function isLoggedIn() {
+		function getUser(username) {
 			let promise = new Promise((resolve, reject)=> {
 				$http({
 					method: 'GET',
-					url: '/api/v1/admin/isloggedin',
-				}).then(function(response) {
-					resolve(response.data);
-				}, function(response) {
-					reject(response.data);
+					url: '/api/v1/admin/getuser/' + username,
+				}).then((result)=> {
+					if (result.error) {
+						reject(result);
+					}
+					else {
+						resolve(result);
+					}
+				}, (error)=> {
+					reject(error);
 				});
 			});
 			return promise;
 		}
 		
+		function isLoggedIn() {
+			let response = true;
+			let userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJECT'));
+			if (userObj === null) {
+				response = false;
+			}
+			return response;
+		}
+		
         function getUserToken(){
-            var USER_TOKEN = JSON.parse(window.sessionStorage.getItem('USER_TOKEN'));
-            return USER_TOKEN;
+            var user_token = JSON.parse(window.sessionStorage.getItem('USER_TOKEN'));
+            return user_token;
         }
 		
 	}

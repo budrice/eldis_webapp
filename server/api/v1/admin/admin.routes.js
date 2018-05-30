@@ -12,21 +12,28 @@ var database = mysql.createPool({
     password: config.dbPass,
     database: config.db
 });
-database.on('error', function(error) {
+database.on('error', (error)=> {
     console.log(error);
 });
 
 // auth.js -------------------------------------------------------------------
 var auth = require('./auth.js')(database);
-router.post('/login', function(req, res) {
+router.post('/login', (req, res)=> {
     auth.Login(req.body).then((result)=> {
         res.json(result);
     }, (error)=> {
         res.json(error);
     });
 });
-router.post('/register', function(req, res) {
+router.post('/register', (req, res)=> {
     auth.Register(req.body).then((result)=> {
+        res.json(result);
+    }, (error)=> {
+        res.json(error);
+    });
+});
+router.get('/getuser/:username', (req, res)=> {
+    auth.GetUser(req.params.username).then((result)=> {
         res.json(result);
     }, (error)=> {
         res.json(error);

@@ -1,0 +1,15 @@
+div#eldis_app_login_container {
+	margin-top: 150px;
+	position: relative;
+	background-color: #ddd;
+	padding: 10px;
+}
+
+div#eldis_app_login_box label {
+	font-weight: 100;
+	color: #000;
+}
+
+div#eldis_app_login_box button {
+	margin: 3px auto;
+}
