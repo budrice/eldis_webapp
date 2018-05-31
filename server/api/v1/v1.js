@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-var adminRoutes  = require('./admin/admin.routes.js');
+var db_routes  = require('./database/database.routes.js');
 
-router.use('/admin', adminRoutes);
+router.use('/database', db_routes);
 
 module.exports = router;

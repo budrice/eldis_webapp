@@ -27,10 +27,19 @@
 </head>
 
 <body>
-    <navbar></navbar>
+    <div navbar></div>
     <!--<div ng-include="'views/nav.html'"></div>-->
+    <div id="eldis_webapp_ngview"><div ng-view></div></div>
+    <hr>
 
-    <ng-view></ng-view>
+    <!-- Footer -->
+    <footer class="eldis_webapp">
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; Eldis Rice 2018</p>
+            </div>
+        </div>
+    </footer>
 
 <!-- Vendor javascripts -->
 
@@ -57,11 +66,20 @@
     <script type="text/javascript" src="/views/home/home.controller.js"></script>
     <script type="text/javascript" src="/views/login/login.controller.js"></script>
 <!-- services -->
-    <script type="text/javascript" src="/services/authentication.service.js"></script>
-    <script type="text/javascript" src="/blocks/msgbox/msgbox.js"></script>
+    <script type="text/javascript" src="/services/app.service.js"></script>
+    <script type="text/javascript" src="/services/msgbox.js"></script>
     
 <!-- directives -->
     <script type="text/javascript" src="/blocks/directives/navbar/navbar.directive.js"></script>
+    <script>
+        $(document).ready(function() {
+            var auto_height_offset = 170;
+            $('#eldis_webapp_ngview').css({'height': window.innerHeight - auto_height_offset});
+            window.addEventListener('resize', function(){
+                $('#eldis_webapp_ngview').css({'height': window.innerHeight - auto_height_offset});
+            });
+        });
+    </script>
 </body>
 
 </html>

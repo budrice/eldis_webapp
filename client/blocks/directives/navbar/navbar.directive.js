@@ -9,12 +9,14 @@
 		
 		controller.$inject = ['$scope'];
 		function controller($scope) {
-			
-			console.log('navbar');
+			$scope.user = {};
+			function getLoginInformation() {
+				
+			}
 			
 			init();
 			function init() {
-				
+				getLoginInformation();
 			}
 		}
 		
