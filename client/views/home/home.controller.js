@@ -11,7 +11,7 @@
         console.log('HOME CONTROLLER');
         
         var userObj = {};
-        userObj = JSON.parse(window.sessionStorage.getItem('UserObj'));
+        userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
         console.log(userObj);
         
         init();

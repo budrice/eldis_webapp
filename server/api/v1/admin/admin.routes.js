@@ -19,21 +19,34 @@ database.on('error', (error)=> {
 // auth.js -------------------------------------------------------------------
 var auth = require('./auth.js')(database);
 router.post('/login', (req, res)=> {
-    auth.Login(req.body).then((result)=> {
+    auth.Login(req.body)
+    .then((result)=> {
+        console.log(result);
         res.json(result);
     }, (error)=> {
         res.json(error);
     });
 });
 router.post('/register', (req, res)=> {
-    auth.Register(req.body).then((result)=> {
+    auth.Register(req.body)
+    .then((result)=> {
         res.json(result);
     }, (error)=> {
         res.json(error);
     });
 });
-router.get('/getuser/:username', (req, res)=> {
-    auth.GetUser(req.params.username).then((result)=> {
+router.get('/getusername/:username', (req, res)=> {
+    auth.GetUsername(req.params.username)
+    .then((result)=> {
+        res.json(result);
+    }, (error)=> {
+        res.json(error);
+    });
+});
+router.get('/getemailaddress/:email_address', (req, res)=> {
+    console.log(req.params.email_address);
+    auth.GetEmailAddress(req.params.email_address)
+    .then((result)=> {
         res.json(result);
     }, (error)=> {
         res.json(error);

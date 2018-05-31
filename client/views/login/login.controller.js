@@ -28,7 +28,17 @@
             console.log('logging in...');
             AuthenticationService.Login($scope.model)
             .then((result)=> {
-                console.log(result);
+                //console.log(result.data);
+                if (result.data.is_logged_in === 1) {
+                    console.log('changing location');
+                    window.sessionStorage.setItem('USER_OBJ', JSON.stringify(result.data));
+                    window.location = "/";
+                }
+                else {
+                    msgbox.warning("You are not logged in.");
+                }
+            }, (error)=> {
+                console.log(error);
             });
         };
         
@@ -54,21 +64,48 @@
         };
         
         $scope.getUsername = (username)=> {
-            AuthenticationService.GetUser(username)
-            .then((result)=> {
-                console.log(result.data);
-                if (result.data.length > 0) {
-                    $scope.message = "Valid username.";
-                    $scope.login_obj.disabled.login_btn = false;
-                }
-                else {
-                    $scope.message = "";
-                    $scope.login_obj.disabled.login_btn = true;
-                }
-                $scope.$apply();
-            }, (error)=> {
-                console.log(error);
-            });
+            if (username.length > 0) {
+                AuthenticationService.GetUsername(username)
+                .then((result)=> {
+                    console.log(result.data);
+                    if (result.data.length > 0) {
+                        $scope.message = "Valid username.";
+                        $scope.login_obj.disabled.login_btn = false;
+                        result.data[0].password = null;
+                        $scope.model = result.data[0];
+                    }
+                    else {
+                        $scope.message = "";
+                        $scope.model.email_address = null;
+                        $scope.login_obj.disabled.login_btn = true;
+                    }
+                    $scope.$apply();
+                }, (error)=> {
+                    console.log(error);
+                });
+            }
+        };
+        
+        $scope.getEmailAddress = (email_address)=> {
+            if (email_address.length > 0) {
+                AuthenticationService.GetEmailAddress(email_address)
+                .then((result)=> {
+                    console.log(result.data);
+                    if (result.data.length > 0) {
+                        $scope.message = "Valid email.";
+                        $scope.login_obj.disabled.login_btn = false;
+                        $scope.model = result.data[0];
+                    }
+                    else {
+                        $scope.message = "";
+                        $scope.model.username = null;
+                        $scope.login_obj.disabled.login_btn = true;
+                    }
+                    $scope.$apply();
+                }, (error)=> {
+                    console.log(error);
+                });
+            }
         };
         
         function getLogin() {

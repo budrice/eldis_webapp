@@ -11,7 +11,8 @@
 		return {
 			Register: register,
 			Login: login,
-			GetUser: getUser,
+			GetUsername: getUsername,
+			GetEmailAddress: getEmailAddress,
 			IsLoggedIn: isLoggedIn,
 			GetUserToken: getUserToken
 		};
@@ -53,11 +54,31 @@
             return promise;
         }
 		
-		function getUser(username) {
+		function getUsername(username) {
 			let promise = new Promise((resolve, reject)=> {
 				$http({
 					method: 'GET',
-					url: '/api/v1/admin/getuser/' + username,
+					url: '/api/v1/admin/getusername/' + username,
+				}).then((result)=> {
+					if (result.error) {
+						reject(result);
+					}
+					else {
+						resolve(result);
+					}
+				}, (error)=> {
+					reject(error);
+				});
+			});
+			return promise;
+		}
+		
+		function getEmailAddress(email_address) {
+			console.log(email_address);
+			let promise = new Promise((resolve, reject)=> {
+				$http({
+					method: 'GET',
+					url: '/api/v1/admin/getemailaddress/' + email_address,
 				}).then((result)=> {
 					if (result.error) {
 						reject(result);

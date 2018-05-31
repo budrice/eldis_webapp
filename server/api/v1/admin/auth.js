@@ -7,59 +7,67 @@ module.exports = function(db){
     return {
         Login: login,
         Register: register,
-		GetUser: getUser
+		GetUsername: getUsername,
+		GetEmailAddress: getEmailAddress
     };
     
     function login(member) {
-		
-		console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-		console.log(member);
-		console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
 		let promise = new Promise((resolve, reject) => {
+			//console.log(member);
 			let response = {};
-			validate(member.username, member.password).then((validObj) => {
-				if (validObj.error) {
-					reject(validObj);
+			validate(member).then((result) => {
+				//console.log(result);
+				if (result.error) {
+					reject(result);
 				}
 				else {
-					if (validObj.result.access_level === 0) {
+					if (result.access_level === 0) {
 						response.error = {};
 						response.error.message = "Your account is currently locked out.";
-						reject(response);
+						resolve(response);
 					}
-					if (validObj.result.access_level === 1) {
+					if (result.access_level === 1) {
 						response.error = {};
 						response.error.message = "Your account has not been approved.";
-						reject(response);
+						resolve(response);
 					}
-					if (validObj.result.access_level === 3) {
-						response.result = {
-							user_id: validObj.result.id,
-							emailaddress: member.email_address,
-							username: validObj.result.username,
-							token: validObj.result.token
+					if (result.access_level > 2) {
+						response = {
+							user_id: result.id,
+							emailaddress: result.email_address,
+							username: result.username,
+							is_logged_in: 1,
+							access_level: result.access_level,
+							token: result.token
 						};
+						updateLastLogin(result.id).then((update) => {
+							if (update.error) {
+								reject(update);
+							}
+							else {
+								resolve(response);
+							}
+						});
 					}
-					resolve(response);
 				}
 			});
 		});
 		return promise;
     }
 	
-    function validate(emailaddress, username, password) {
-		emailaddress = (emailaddress === undefined) ? null: emailaddress;
-		username = (username === undefined) ? null : username;
+    function validate(member) {
+		//member.email_address = (member.email_address === undefined) ? null: member.email_address;
+		//member.username = (member.username === undefined) ? null : member.username;
 		let promise = new Promise((resolve, reject) => {
-			if (!emailaddress && !username) {
+			if (!member.email_address && !member.username) {
 				reject("Missing email address or username.");
 			}
 			let response = {};
-			let sql =  "SELECT `id`, `emailaddress`, `username`, ";
+			let sql =  "SELECT `id`, `email_address`, `username`, ";
 				sql += "`password`, `access_level`, `is_logged_in` ";
 				sql += "FROM `authentication` ";
-				sql += "WHERE `emailaddress` = ? OR `username` = ?;";
-			db.query(sql, [email_address, username], function(error, result){
+				sql += "WHERE `id` = ?;";
+			db.query(sql, [member.id], function(error, result){
 				if (error){
 					response.error = {};
 					response.error.message = "Query error: " + error;
@@ -67,26 +75,16 @@ module.exports = function(db){
 				}
 				else {
 					if (result.length > 0) {
-						if (bcrypt.compareSync(password, result[0].password)) {
-							
-							response.result = {
+						if (bcrypt.compareSync(member.password, result[0].password)) {
+							response = {
 								id	: result[0].id,
 								email_address : result[0].email_address,
 								access_level: result[0].access_level,
 								username: result[0].username,
 								is_logged_in: result[0].is_logged_in,
-								token: (result[0].access_level == 3) ? genToken(result[0].id) : null
+								token: (result[0].access_level > 2) ? genToken(result[0].id) : null
 							};
-							
-							updateLastLogin(result[0].id).then((update) => {
-								if (update.error) {
-									reject(update);
-								}
-								else {
-									resolve(response);
-								}
-							});
-							
+							resolve(response);
 						}
 						else {
 							response.error = {};
@@ -108,18 +106,19 @@ module.exports = function(db){
 	function updateLastLogin(id) {
 		
 		let promise = new Promise((resolve, reject) => {
-			let now = dateFormat(new Date(), "m/d/yyyy h:MM:ss TT");
+			let response = {};
 			let sql =  "UPDATE authentication ";
-				sql += "SET date_last_log = ? ";
+				sql += "SET access_level = 3 ";
 				sql += "WHERE id = ?;";
-			db.query(sql, [now, id], function(error) {
+			db.query(sql, [id], function(error) {
 				if (error) {
+					console.log(error);
 					response.error = {};
-					response.error.message = "Auth.validate() sql2 MySql failure.";
+					response.error.message = error;
 					reject(response);
 				}
 				else {
-					resolve(response);
+					resolve(true);
 				}
 			});
 		});
@@ -129,7 +128,7 @@ module.exports = function(db){
 	
     function register(member) {
 		let promise = new Promise((resolve, reject) => {
-			console.log(member);
+			//console.log(member);
 			let response = {};
             bcrypt.genSalt(10, function(error, salt) {
                 bcrypt.hash(member.password, salt, function(error, hash) {
@@ -165,7 +164,7 @@ module.exports = function(db){
 		return promise;
     }
 	
-	function getUser(username) {
+	function getUsername(username) {
 		let promise = new Promise((resolve, reject)=> {
 			let sql = "SELECT * FROM authentication WHERE `username` = ?;";
 			db.query(sql, [username], (error, result)=> {
@@ -180,19 +179,34 @@ module.exports = function(db){
 		return promise;
 	}
 	
+	function getEmailAddress(email_address) {
+		let promise = new Promise((resolve, reject)=> {
+			let sql = "SELECT * FROM authentication WHERE `email_address` = ?;";
+			db.query(sql, [email_address], (error, result)=> {
+				if (error) {
+					reject(error);
+				}
+				else {
+					resolve(result);
+				}
+			});
+		});
+		return promise;
+	}
+	
 };
 // private method
-function genToken(uid) {
-    let expires = expiresIn(7); // 7 days
+function genToken(id) {
+    let expires = expiresIn(1); // 7 days
     let token = jwt.encode({
         exp: expires,
-        user_id: uid 
+        id: id 
     }, require('../../../config/secret')());
 
     let token_obj = {
         key: token,
         expires: expires,
-        uid: uid
+        id: id
     };
 
     return token_obj;

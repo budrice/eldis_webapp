@@ -1,17 +1,16 @@
-
 <div class="container">
 	<div class="row">
 		<div class="panel col-xs-12 col-sm-4 col-sm-offset-4" id="eldis_app_login_container">
 			<div id="eldis_app_login_box">
 				<span class="text-danger">{{message}}&nbsp;</span><br>
 				<label for="eldis_app_login_email_address">Email Address</label><br>
-				<input type="text" class="form-control" id="eldis_app_login_email_address" ng-model="model.email_address" ng-change="getUsername(model.username);"><br>
+				<input type="text" class="form-control" id="eldis_app_login_email_address" ng-model="model.email_address" ng-change="getEmailAddress(model.email_address);"><br>
 				<label for="eldis_app_login_username">Username</label><br>
-				<input type="text" class="form-control" id="eldis_app_login_username" ng-model="model.username" ng-change="getUserLogInfo(model.username);"><br>
+				<input type="text" class="form-control" id="eldis_app_login_username" ng-model="model.username" ng-change="getUsername(model.username);"><br>
 				<label for="eldis_app_login_password">Enter password</label><br>
-				<input type="text" class="form-control" id="eldis_app_login_password" ng-model="model.password"><br>
+				<input type="password" class="form-control" id="eldis_app_login_password" ng-model="model.password"><br>
 				<label for="eldis_app_login_repassword" ng-show="login_obj.view.registration_pass">Enter password again</label><br>
-				<input type="text" class="form-control" id="eldis_app_login_repassword" ng-model="model.repassword" ng-show="login_obj.view.registration_pass"><br>
+				<input type="password" class="form-control" id="eldis_app_login_repassword" ng-model="model.repassword" ng-show="login_obj.view.registration_pass"><br>
 				<button class="btn btn-info" id="eldis_app_login_btn" ng-click="login();" ng-show="login_obj.view.login_btn" ng-disabled="login_obj.disabled.login_btn">Login</button>
 				<button class="btn btn-default" id="eldis_app_login_btn" ng-click="register();" ng-show="login_obj.view.registration_btn" ng-disabled="login_obj.disabled.registration_btn">Register</button>
 				<button class="btn btn-default" id="eldis_app_logout_btn" ng-click="logout();" ng-show="login_obj.view.logout_btn">Logout</button>
@@ -19,4 +18,3 @@
 		</div>
 	</div>
 </div>
-
