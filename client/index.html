@@ -27,7 +27,8 @@
 </head>
 
 <body>
-    <div ng-include="'views/nav.html'"></div>
+    <navbar></navbar>
+    <!--<div ng-include="'views/nav.html'"></div>-->
 
     <ng-view></ng-view>
 
@@ -58,6 +59,9 @@
 <!-- services -->
     <script type="text/javascript" src="/services/authentication.service.js"></script>
     <script type="text/javascript" src="/blocks/msgbox/msgbox.js"></script>
+    
+<!-- directives -->
+    <script type="text/javascript" src="/blocks/directives/navbar/navbar.directive.js"></script>
 </body>
 
 </html>
