@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html ng-app="app">
 
 <head>
@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Eldis Webapp</title>
+    <title>Eldis webapp</title>
 
     <link type="text/css"  rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="/stylesheets/bootstrap/modern-business.css">
@@ -28,24 +28,14 @@
 
 <body>
     <div navbar></div>
-    <!--<div ng-include="'views/nav.html'"></div>-->
-    <div id="eldis_webapp_ngview"><div ng-view></div></div>
-    <hr>
-
-    <!-- Footer -->
-    <footer class="eldis_webapp">
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Eldis Rice 2018</p>
-            </div>
-        </div>
-    </footer>
+    <div headbar></div>
+    <div breadcrumbs></div>
+    <div ng-view></div>
+    <div footbar></div>
 
 <!-- Vendor javascripts -->
-
     <script type="text/javascript" src="/javascripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
-    
     <script type="text/javascript" src="/javascripts/angular.js"></script>
     <script type="text/javascript" src="/javascripts/angular-animate.js"></script>
     <script type="text/javascript" src="/javascripts/angular-route.js"></script>
@@ -71,15 +61,11 @@
     
 <!-- directives -->
     <script type="text/javascript" src="/blocks/directives/navbar/navbar.directive.js"></script>
-    <script>
-        $(document).ready(function() {
-            var auto_height_offset = 170;
-            $('#eldis_webapp_ngview').css({'height': window.innerHeight - auto_height_offset});
-            window.addEventListener('resize', function(){
-                $('#eldis_webapp_ngview').css({'height': window.innerHeight - auto_height_offset});
-            });
-        });
-    </script>
+    <script type="text/javascript" src="/blocks/directives/headbar/headbar.directive.js"></script>
+    <script type="text/javascript" src="/blocks/directives/breadcrumbs/breadcrumbs.directive.js"></script>
+    <script type="text/javascript" src="/blocks/directives/navsidebar/nav.sidebar.directive.js"></script>
+    <script type="text/javascript" src="/blocks/directives/footbar/footbar.directive.js"></script>
+    
 </body>
 
 </html>

@@ -13,16 +13,9 @@
         let register_flag = 0;
         
         $scope.login_obj = {};
-        $scope.login_obj.view = {
-            login_btn: true,
-            registration_pass: false,
-            registration_btn: true
-        };
+
         
-        $scope.login_obj.disabled = {
-            login_btn: true,
-            registration_btn: false
-        };
+
         
         $scope.login = ()=> {
             AppService.Login($scope.model)
@@ -58,9 +51,7 @@
                 console.log(error);
             });
         };
-        
         $scope.basicSearch = (arg_key, arg_value)=> {
-            let input_cleanup_switch = (arg_key == 'username') ? 'password' : arg_key;
             if (arg_value.length > 0) {
                 AppService.BasicSearch('authentication', arg_key, arg_value)
                 .then((result)=> {
@@ -71,7 +62,6 @@
                     }
                     else {
                         $scope.message = "";
-                        $scope.model[input_cleanup_switch] = null;
                         $scope.login_obj.disabled.login_btn = true;
                     }
                     $scope.$apply();
@@ -80,6 +70,18 @@
                 });
             }
         };
+        
+        function setBtnsDefault() {
+            $scope.login_obj.view = {
+                login_btn: true,
+                registration_pass: false,
+                registration_btn: true
+            };
+            $scope.login_obj.disabled = {
+                login_btn: true,
+                registration_btn: false
+            };
+        }
         
         function getLogin() {
             is_logged_in = AppService.IsLoggedIn();
@@ -97,6 +99,7 @@
         init();
         function init() {
             getLogin();
+            setBtnsDefault();
         }
         
     }

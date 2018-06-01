@@ -1,10 +1,25 @@
-.panel {
-	box-shadow: 3px 3px 6px #555;
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: 100;
+	color: #000099;
 }
 footer.eldis_webapp {
 	margin-bottom: 0;
 	text-align: center;
 }
 #eldis_webapp_ngview {
+/*	background-attachment: fixed;
+	background-image: url("../images/bg.jpg");
+	background-size: cover;*/
 	overflow-y: scroll;
+}
+footer.eldis_webapp {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: #000099;
+	color: #fff;
+	text-align: center;
 }
