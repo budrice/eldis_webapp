@@ -27,7 +27,8 @@
 			
 			init();
 			function init() {
-				$scope.$watch('onLocationChanged', ()=> {
+				getHash();
+				$scope.$on('$routeChangeStart', ()=> { 
 					getHash();
 				});
 			}

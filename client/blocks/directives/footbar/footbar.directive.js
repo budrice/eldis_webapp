@@ -23,7 +23,8 @@
                 
             },
             controller: controller,
-            templateUrl: 'blocks/directives/footbar/footbar.html',	
+            templateUrl: 'blocks/directives/footbar/footbar.html',
+			css: 'blocks/directives/footbar/footbar.css'
 		};
 	}
 	

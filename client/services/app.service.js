@@ -112,7 +112,7 @@
 		 */
 		function isLoggedIn() {
 			let response = true;
-			let userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJECT'));
+			let userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
 			if (userObj === null) {
 				response = false;
 			}
@@ -124,7 +124,7 @@
 		 * @return {Object} user object carries token
 		 */
         function getUserObject(){
-            return JSON.parse(window.sessionStorage.getItem('USER_OBJECT'));
+            return JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
         }
 		
 	}

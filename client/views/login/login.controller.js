@@ -13,9 +13,6 @@
         let register_flag = 0;
         
         $scope.login_obj = {};
-
-        
-
         
         $scope.login = ()=> {
             AppService.Login($scope.model)
@@ -85,6 +82,7 @@
         
         function getLogin() {
             is_logged_in = AppService.IsLoggedIn();
+            
             if (is_logged_in) {
                 $scope.message = "You are logged in.";
                 $scope.login_obj.view = {
@@ -95,6 +93,12 @@
                 };
             }
         }
+        
+        $('#eldis_app_login_container').keypress(function(event){
+            if (event.which == 13) {
+                $scope.login();
+            }
+        });
        
         init();
         function init() {

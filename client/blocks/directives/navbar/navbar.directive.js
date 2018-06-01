@@ -39,7 +39,11 @@
 			init();
 			function init() {
 				getHash();
-				getLoginInformation();
+				$scope.$on('$routeChangeStart', ()=> { 
+					getHash();
+					getLoginInformation();
+				});
+				
 			}
 		}
 		

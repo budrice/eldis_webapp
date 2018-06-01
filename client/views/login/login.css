@@ -16,6 +16,10 @@ div#eldis_app_login_box {
 	background-color: rgba(0, 0, 128, 0.5);
 	box-shadow: 3px 3px 6px #000;
 }
+div#eldis_app_login_box p {
+	color: rgba(0, 255, 255, 1);
+	text-shadow: 0 0 2px rgba(0, 0, 0, 1);
+}
 div#eldis_app_login_box label {
 	font-family: "Calibri";
 	font-weight: 100;
