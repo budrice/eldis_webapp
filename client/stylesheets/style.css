@@ -10,3 +10,6 @@ body {
 	background-size: cover;*/
 	overflow-y: scroll;
 }
+.budbreadcrumb {
+	background-color: transparent;
+}

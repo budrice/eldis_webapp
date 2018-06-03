@@ -12,10 +12,11 @@
 			$scope.user = {};
 			console.log('window.location.hash');
 			console.log(window.location.hash);
-			$scope.current_location = window.location.hash === '#!/login/';
+			$scope.current_location = $location.hash === '#!/login/';
 			console.log('navbar ' + $scope.current_location);
 			$scope.view = (hash)=> {
-				window.location.hash = "#/" + hash;
+				console.log(hash);
+				$location.path("/" + hash + "/");
 			};
 			
 			$scope.logout = ()=> {
