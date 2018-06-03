@@ -3,9 +3,9 @@
 	'use strict';
 	
 	angular.module('app')
-	.directive('footbar', footbar);
+	.directive('budFootbar', budFootbar);
 	
-	function footbar(){
+	function budFootbar(){
 		
 		controller.$inject = ['$scope'];
 		function controller($scope) {

@@ -10,12 +10,18 @@
     <meta name="author" content="">
 
     <title>Eldis webapp</title>
-
-    <link type="text/css"  rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link data-require="bootstrap-css@*" data-semver="3.3.1" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+    <!--<link type="text/css"  rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css">-->
     <link type="text/css" rel="stylesheet" href="/stylesheets/bootstrap/modern-business.css">
     <link type="text/css" rel="stylesheet" href="/stylesheets/toastr.css">
     <link type="text/css" rel="stylesheet" href="/stylesheets/fontawesome-5.0.13-all.css">
     <link type="text/css" rel="stylesheet" href="/stylesheets/style.css">
+
+
+
+
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,25 +33,33 @@
 </head>
 
 <body>
-    <div navbar></div>
-    <div headbar></div>
-    <div breadcrumbs></div>
+    
+    <div bud-navbar></div>
+    <div bud-headbar></div>
+    <div bud-breadcrumbs></div>
     <div ng-view></div>
-    <div footbar></div>
-
+    <div bud-footbar></div>
+    
 <!-- Vendor javascripts -->
-    <script type="text/javascript" src="/javascripts/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/javascripts/angular.js"></script>
-    <script type="text/javascript" src="/javascripts/angular-animate.js"></script>
-    <script type="text/javascript" src="/javascripts/angular-route.js"></script>
-    <script type="text/javascript" src="/javascripts/angular-resource.js"></script>
-    <script type="text/javascript" src="/javascripts/angular-sanitize.js"></script>
+    
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <!--<script type="text/javascript" src="/javascripts/jquery-3.3.1.min.js"></script>-->
+    <!--<script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>-->
+    <script type="text/javascript" src="/javascripts/angular/angular.js"></script>
+    <script type="text/javascript" src="/javascripts/angular/angular-animate.js"></script>
+    <script type="text/javascript" src="/javascripts/angular/angular-route.js"></script>
+    <script type="text/javascript" src="/javascripts/angular/angular-resource.js"></script>
+    <script type="text/javascript" src="/javascripts/angular/angular-sanitize.js"></script>
     <script type="text/javascript" src="/javascripts/toastr.js"></script>
     <script type="text/javascript" src="/javascripts/underscore-1.9.0.js"></script>
     <script type="text/javascript" src="/javascripts/angular-css.js"></script>
-    <script type="text/javascript" src="/javascripts/ui-bootstrap-tpls-1.0.2.min.js"></script>
+    <!--<script type="text/javascript" src="/javascripts/ui-bootstrap-tpls-1.0.2.min.js"></script>-->
     
+    <script type="text/javascript" src="/javascripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
 <!--Bootstrapping -->
     <script type="text/javascript" src="app.module.js"></script>
     
@@ -53,6 +67,7 @@
     <script type="text/javascript" src="/views/config.route.js"></script>
     
 <!-- views -->
+    <script type="text/javascript" src="/views/index.controller.js"></script>
     <script type="text/javascript" src="/views/home/home.controller.js"></script>
     <script type="text/javascript" src="/views/login/login.controller.js"></script>
 <!-- services -->
@@ -66,6 +81,7 @@
     <script type="text/javascript" src="/blocks/directives/navsidebar/nav.sidebar.directive.js"></script>
     <script type="text/javascript" src="/blocks/directives/footbar/footbar.directive.js"></script>
     
+
 </body>
 
 </html>

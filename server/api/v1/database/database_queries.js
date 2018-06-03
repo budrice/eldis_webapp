@@ -44,12 +44,12 @@ module.exports = function() {
 						response.error.message = "Your account is currently locked out.";
 						resolve(response);
 					}
-					if (result.access_level === 1) {
-						response.error = {};
-						response.error.message = "Your account has not been approved.";
-						resolve(response);
-					}
-					if (result.access_level > 2) {
+					//if (result.access_level === 1) {
+					//	response.error = {};
+					//	response.error.message = "Your account has not been approved.";
+					//	resolve(response);
+					//}
+					else {
 						response = {
 							user_id: result.id,
 							emailaddress: result.email_address,
@@ -58,21 +58,23 @@ module.exports = function() {
 							access_level: result.access_level,
 							token: result.token
 						};
-						//let update_object = {
-						//	id: result.id,
-						//	is_logged_in: 1
-						//};
+						let update_object = {
+							id: result.id,
+							is_logged_in: 1
+						};
 						
-						resolve(response);
+						//resolve(response);
 						
-						//update(update_object, 'authentication').then((update) => {
-						//	if (update.error) {
-						//		reject(update);
-						//	}
-						//	else {
-						//		resolve(response);
-						//	}
-						//});
+						update(update_object, 'authentication').then((update) => {
+							if (update.error) {
+								reject(update);
+							}
+							else {
+								resolve(response);
+							}
+						}, (error)=> {
+							reject(error);
+						});
 					}
 				}
 			});
@@ -120,7 +122,7 @@ module.exports = function() {
 	function update(update_object, table) {
 		
 		let promise = new Promise((resolve, reject) => {
-			let id = angular.copy(update_object.id);
+			let id = update_object.id;
 			delete update_object.id;
 			let sql =  "UPDATE `" + table + "` ";
 				sql += "SET ? ";

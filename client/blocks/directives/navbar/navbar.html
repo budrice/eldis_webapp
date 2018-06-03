@@ -1,5 +1,5 @@
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-hide="current_location">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -15,19 +15,19 @@
             <div class="collapse navbar-collapse" id="eldis_webapp_nav_collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href ng-click="view('about');" ng-show="nav_buttons">About</a>
+                        <a href ng-click="view('about');">About</a>
                     </li>
                     <li>
-                        <a href ng-click="view('services');" ng-show="nav_buttons">Services</a>
+                        <a href ng-click="view('services');">Services</a>
                     </li>
                     <li>
-                        <a href ng-click="view('contact');" ng-show="nav_buttons">Contact</a>
+                        <a href ng-click="view('contact');">Contact</a>
                     </li>
                     <li>
-                        <a href ng-click="view('pricing');" ng-show="nav_buttons">Pricing</a>
+                        <a href ng-click="view('pricing');">Pricing</a>
                     </li>
                     <li>
-                        <a href ng-click="logout();" ng-show="nav_buttons">Log out</a>
+                        <a href ng-click="logout();">Log out</a>
                     </li>
                 </ul>
             </div>

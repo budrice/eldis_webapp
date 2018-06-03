@@ -3,15 +3,17 @@
 	'use strict';
 	
 	angular.module('app')
-	.directive('navbar', navbar);
+	.directive('budNavbar', budNavbar);
 	
-	function navbar(){
+	function budNavbar(){
 		
-		controller.$inject = ['$scope'];
-		function controller($scope) {
+		controller.$inject = ['$scope', '$location', '$window'];
+		function controller($scope, $location, $window) {
 			$scope.user = {};
-			$scope.nav_buttons = false;
-			
+			console.log('window.location.hash');
+			console.log(window.location.hash);
+			$scope.current_location = window.location.hash === '#!/login/';
+			console.log('navbar ' + $scope.current_location);
 			$scope.view = (hash)=> {
 				window.location.hash = "#/" + hash;
 			};
@@ -19,32 +21,20 @@
 			$scope.logout = ()=> {
 				console.log('log out');
 				window.sessionStorage.removeItem("USER_OBJ");
-				window.location.hash = "#/login/";
+				$location.path('/login/');
+				$window.location.reload();
 			};
 			
 			function getLoginInformation() {
 				
 			}
 			
-			function getHash() {
-				let view = window.location.hash;
-				if (view == '#/login/') {
-					$scope.nav_buttons = false;
-				}
-				else {
-					$scope.nav_buttons = true;
-				}
-			}
 			
 			init();
 			function init() {
-				getHash();
-				$scope.$on('$routeChangeStart', ()=> { 
-					getHash();
-					getLoginInformation();
-				});
-				
+				getLoginInformation();
 			}
+			
 		}
 		
         return {

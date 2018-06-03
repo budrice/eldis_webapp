@@ -7,6 +7,7 @@
 
     LoginController.$inject = ['$scope', 'AppService', 'msgbox'];
     function LoginController($scope, AppService, msgbox) {
+        console.log('LOGIN CONTROLLER');
         $scope.model = {};
         
         let is_logged_in;
@@ -30,32 +31,58 @@
         };
         
         $scope.register = ()=> {
-            if (register_flag === 0) {
-                $scope.login_obj.view = {
-                    login_btn: false,
-                    registration_pass: true,
-                    registration_btn: true,
-                    logout_btn: false
-                };
-                register_flag++;
-                return;
+            console.log('register flag = ' + register_flag);
+            register_flag++;
+            switch (register_flag) {
+                case 1:
+                    $scope.message = "Create a username and password.";
+                    $scope.login_obj.view = {
+                        login_btn: false,
+                        registration_pass: true,
+                        registration_btn: true,
+                    };
+                    break;
+                case 2:
+                    let m = {};
+                    m = $scope.model;
+                    if (m.password === m.repassword && $scope.login_form.$valid) {
+                        AppService.Register($scope.model)
+                        .then(()=> {
+                            register_flag = 0;
+                            $scope.message = "Registration succeeded.\nYou are able to log in.";
+                            $scope.$apply();
+                            msgbox.success('Welcome.');
+                            
+                        }, (error)=> {
+                            register_flag = 0;
+                            $scope.message = "Registration failed.\nYou are unable to log in.";
+                            msgbox.warning('Error. Registration failed.\nThe issue has been reported.\nRefresh and try again.');
+                            $scope.$apply();
+                            console.log(error);
+                        });
+                    }
+                    break;
             }
-            AppService.Register(user_object)
-            .then(()=> {
-                msgbox.success('Welcome.');
-                
-            }, (error)=> {
-                console.log(error);
-            });
         };
-        $scope.basicSearch = (arg_key, arg_value)=> {
+        
+        $scope.userSearch = (arg_key, arg_value = [])=> {
             if (arg_value.length > 0) {
                 AppService.BasicSearch('authentication', arg_key, arg_value)
                 .then((result)=> {
                     if (result.data.length > 0) {
-                        $scope.message = "Valid " + arg_key + ".";
-                        $scope.login_obj.disabled.login_btn = false;
-                        $scope.model = result.data[0];
+                        if (register_flag > 0) {
+                            $scope.message = arg_key + " is already registered.";
+                        }
+                        else {
+                                $scope.message = "Welcome " + result.data[0].username + ", you are able to log in.";
+                                $scope.login_obj.view = {
+                                    login_btn: true,
+                                    registration_pass: false,
+                                    registration_btn: false,
+                                };
+                                $scope.login_obj.disabled.login_btn = false;
+                                $scope.model = result.data[0];
+                        }
                     }
                     else {
                         $scope.message = "";
@@ -65,6 +92,9 @@
                 }, (error)=> {
                     console.log(error);
                 });
+            }
+            else {
+                msgbox.info('empty');
             }
         };
         
@@ -94,13 +124,17 @@
             }
         }
         
-        $('#eldis_app_login_container').keypress(function(event){
-            if (event.which == 13) {
+        $('#eldis_app_login_container').keypress((event)=> {
+            if (event.which == 13 && register_flag === 0) {
                 $scope.login();
             }
+            else if (event.which == 13 && register_flag > 0) {
+                $scope.register();
+            }
         });
-       
+        
         init();
+        
         function init() {
             getLogin();
             setBtnsDefault();

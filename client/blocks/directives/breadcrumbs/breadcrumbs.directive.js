@@ -3,35 +3,18 @@
 	'use strict';
 	
 	angular.module('app')
-	.directive('breadcrumbs', breadcrumbs);
+	.directive('budBreadcrumbs', budBreadcrumbs);
 	
-	function breadcrumbs(){
+	function budBreadcrumbs(){
 		
 		controller.$inject = ['$scope'];
 		function controller($scope) {
-			
+			$scope.current_location = window.location.hash === '#!/login/';
+			console.log('breadcrumbs ' + $scope.current_location);
 			$scope.view = (hash)=> {
 				window.location.hash = "#/" + hash;
 			};
 			
-			$scope.show = true;
-			function getHash() {
-				let hash = window.location.hash;
-				if (hash == '#/login/') {
-					$scope.show = false;
-				}
-				else {
-					$scope.show = true;
-				}
-			}
-			
-			init();
-			function init() {
-				getHash();
-				$scope.$on('$routeChangeStart', ()=> { 
-					getHash();
-				});
-			}
 		}
 		
         return {

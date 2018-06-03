@@ -3,9 +3,9 @@
 	'use strict';
 	
 	angular.module('app')
-	.directive('navSidebar', navSidebar);
+	.directive('budNavSidebar', budNavSidebar);
 	
-	function navSidebar(){
+	function budNavSidebar(){
 		
 		controller.$inject = ['$scope'];
 		function controller($scope) {

@@ -33,3 +33,6 @@ div#eldis_app_login_box button {
 	border-radius: 9px;
 	border: 1px solid rgba(0, 0, 0, 1);
 }
+/*input.ng-valid {
+	background-color: rgb(0, 255, 0);
+}*/

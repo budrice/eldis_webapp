@@ -3,35 +3,17 @@
 	'use strict';
 	
 	angular.module('app')
-	.directive('headbar', headbar);
+	.directive('budHeadbar', budHeadbar);
 	
-	function headbar(){
+	function budHeadbar(){
 		
 		controller.$inject = ['$scope'];
 		function controller($scope) {
-			
+			$scope.current_location = window.location.hash === '#!/login/';
+			console.log('headbar ' + $scope.current_location);
 			$scope.view = (hash)=> {
 				window.location.hash = "#/" + hash + "/";
 			};
-			
-			function getHash() {
-				let hash = window.location.hash;
-				console.log(hash);
-				if (hash == '#/login/') {
-					$scope.show = false;
-				}
-				else {
-					$scope.show = true;
-				}
-			}
-			
-			init();
-			function init() {
-				getHash();
-				$scope.$on('$routeChangeStart', ()=> { 
-					getHash();
-				});
-			}
 			
 		}
 		
