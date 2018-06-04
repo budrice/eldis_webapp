@@ -12,11 +12,8 @@
         userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
 		
 		let i = 0;
-		$scope.show_slide_ui = false;
-		
 		let ht = $("#slideshow_ul").height();
 		let vht = ht/length;
-
 		$("#slide").css({'height': vht});
 				
 		function next() {
@@ -41,7 +38,7 @@
 				$window.location.reload();
             }
 			else {
-				setTimeout(next, 10);
+				angular.element(document).ready(next);
 				setInterval(function() {
 					next();
 				}, 3000);
