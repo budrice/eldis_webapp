@@ -1,0 +1,35 @@
+<!-- SlideshowContain -->
+<div id="bud_slideshow_container" ng-class="slideShowContainCss">
+	
+	 <!-- Row -->
+	<div class="row">
+		<div id="bud_slideshow_splash" ng-show="slideshowSplash">
+			<img src="../../images/loading-animation.gif" alt="loading...">
+		</div>
+		<!-- Slideshow -->
+		<div id="bud_slideshow_slide" ng-show="slideshowSlide">
+			<div id="bud_slideshow_slide_frame">
+				<ul id="bud_slideshow_ul">
+					<li ng-repeat="image in carouselArray">
+						<img ng-src="{{image.src}}" alt="{{image.alt}}">
+					</li>
+				</ul>
+			</div>
+			<!-- /.Slideshow -->
+		</div>
+	</div>
+	<!-- /.Row -->
+	<!-- Row -->
+	
+	
+	<div class="row">
+		<!-- Panel -->
+		<div class="panel" id="bud_slideshow_panel" ng-show="showPanel || true">
+			<ng-transclude></ng-transclude>
+		</div>
+		<!-- /.Panel -->
+	</div>
+	<!-- /.Row -->
+</div>
+
+<!-- /.SlideshowContain -->

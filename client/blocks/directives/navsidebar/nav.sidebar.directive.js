@@ -19,11 +19,11 @@
         return {
             restrict: 'EA',
             scope: {
-                navSidebarContainCss: '@',
-				navSidebarBtnCss: '@'
+                navSidebarContainCss: '@'
             },
 			controller: controller,
-            templateUrl: 'blocks/directives/navsidebar/nav.sidebar.html',	
+            templateUrl: 'blocks/directives/navsidebar/nav.sidebar.html',
+			css: [{href: 'blocks/directives/navsidebar/navsidebar.css'}]
 		};
 	}
 	

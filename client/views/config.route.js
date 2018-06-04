@@ -27,6 +27,7 @@
             controller: "HomeController",
             css: [{ href: "/views/home/home.css" }]
         });
+        
     });
     
 })();

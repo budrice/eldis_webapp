@@ -11,38 +11,34 @@
         var userObj = {};
         userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
 		
-		let i = 0;
-		let ht = $("#slideshow_ul").height();
-		let vht = ht/length;
-		$("#slide").css({'height': vht});
-				
-		function next() {
-			let length = $("#slideshow_ul li").length;
-			if (i < length) {
-				let ht = $("#slideshow_ul").height();
-				let vht = ht/length;
-				let top = i * vht;
-				$("#slideshow").css({'margin-top': "-" + top + "px"});
-				$("#slide").css({'height': vht});
-				$scope.show_slide_ui = true;
-				$scope.$apply();
-				i = (i == (length - 1) ? 0 : i + 1);
-			}
-		}
-        
-        init();
+		$scope.carousel = [{
+			id: 1,
+			src: '../../images/carousel_0.jpg',
+			alt: 'AutoIT sphere',
+			text: 'The picture above is a Photoshop art I did using a screenshot of my AutoIT code and a sphere tutorial.'
+		},
+		{
+			id: 2,
+			src: '../../images/carousel_1.jpg',
+			alt: 'Font fire',
+			text: 'The picture above is a Photoshop art I did using a font on fire tutorial.'
+		},
+		{
+			id: 3,
+			src: '../../images/carousel_2.jpg',
+			alt: 'Sushi',
+			text: 'I just like sushi. I lived in Okinawa, Japan for eight years.'
+		}];
+
+		
+		init();
         function init() {
             if (userObj === null) {
                 msgbox.info('redirecting to login...');
 				$location.path('/login/');
 				$window.location.reload();
             }
-			else {
-				angular.element(document).ready(next);
-				setInterval(function() {
-					next();
-				}, 3000);
-			}
+
         }
         
     }

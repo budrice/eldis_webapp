@@ -1,73 +1,14 @@
-    <style>
-        #slide {
-            width: 100%;
-            max-height: 300px;
-            max-width: 600px;
-            overflow: hidden;
-            position: relative;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-        }
-        #slideshow ul {
-            margin: 0;
-            padding: 0;
-        }
-        #slideshow li {
-            list-style: none;
-            width: 100%;
-        }
-        #slideshow img {
-            width: 100%;
-            max-height: 300px;
-            max-width: 600px;
-        }
-        #slideshow_panel {
-            width: 100%;
-            max-width: 600px;
-            padding: 15px 20px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-            background-color: rgb(240, 240, 240)
-        }
-    </style>
-    
     <!-- Container -->
     <div class="container" id="eldis_webapp_home_container">
         <!-- Content Row -->
         <div class="row" id="eldis_webapp_home_content">
             <!-- Sidebar Column -->
-            <div bud-nav-sidebar nav-sidebar-contain-css="col-xs-3" nav-sidebar-btn-css="eldis_webapp_home_sidebar_btn"></div>
-            <!-- Content Column -->
-            <div class="col-xs-8" id="eldis_webapp_home_slide_ui">
-                <!-- /.Row -->
-                <div class="row" >
-                    <!-- Slideshow -->
-                    <div id="slide">
-                        <div id="slideshow">
-                            <ul id="slideshow_ul">
-                                <li>
-                                    <img src="../images/carousel_0.jpg" alt="0">
-                                </li>
-                                <li>
-                                    <img src="../images/carousel_1.jpg" alt="1">
-                                </li>
-                                <li>
-                                    <img src="../images/carousel_2.jpg" alt="2">
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /.Slideshow -->
-                </div>
-                <!-- /.Row -->
-                <div class="row">
-                    <div class="panel" id="slideshow_panel">
-                        <h3>Welcome</h3>
-                        <p>This is my Angular JS, Node JS and MySQL web app.</p>
-                        <p>I wrote this to showcase my abilities with the JavaScript language.</p>
-                    </div>
-                </div>
-                <!-- /.Row -->
+            <bud-nav-sidebar nav-sidebar-contain-css="col-xs-3"></bud-nav-sidebar>
+            <!-- carousel -->
+            <div bud-carousel slideshow-splash="true" slide-show-contain-css="col-xs-8" carousel-array="carousel" interval="3200">
+                <h3>Welcome</h3>
+                <p>This is my Angular JS, Node JS and MySQL web app.</p>
+                <p>I wrote this to showcase my abilities with the JavaScript language.</p>
             </div>
             <!-- /.Content -->
         </div>

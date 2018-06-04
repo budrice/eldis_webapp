@@ -24,7 +24,7 @@
             },
             controller: controller,
             templateUrl: 'blocks/directives/footbar/footbar.html',
-			css: 'blocks/directives/footbar/footbar.css'
+			css: [{href: 'blocks/directives/footbar/footbar.css'}]
 		};
 	}
 	
