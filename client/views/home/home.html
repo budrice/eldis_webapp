@@ -36,11 +36,11 @@
         <!-- Content Row -->
         <div class="row" id="eldis_webapp_home_content">
             <!-- Sidebar Column -->
-            <div bud-nav-sidebar nav-sidebar-css="col-xs-3"></div>
+            <div bud-nav-sidebar nav-sidebar-contain-css="col-xs-3" nav-sidebar-btn-css="eldis_webapp_home_sidebar_btn"></div>
             <!-- Content Column -->
-            <div class="col-xs-8">
+            <div class="col-xs-8" ng-show="show_slide_ui">
                 <!-- /.Row -->
-                <div class ="row">
+                <div class="row" >
                     <!-- Slideshow -->
                     <div id="slide">
                         <div id="slideshow">
@@ -62,8 +62,9 @@
                 <!-- /.Row -->
                 <div class="row">
                     <div class="panel" id="slideshow_panel">
-                        <h2>Welcome</h2>
-                        <p>This is my Angular JS, Node JS and MySQL web app. I wrote this to showcase my abilities with the JavaScript language.</p>
+                        <h3>Welcome</h3>
+                        <p>This is my Angular JS, Node JS and MySQL web app.</p>
+                        <p>I wrote this to showcase my abilities with the JavaScript language.</p>
                     </div>
                 </div>
                 <!-- /.Row -->

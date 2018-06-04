@@ -19,7 +19,8 @@
         return {
             restrict: 'EA',
             scope: {
-                navSidebarCss: '@'
+                navSidebarContainCss: '@',
+				navSidebarBtnCss: '@'
             },
 			controller: controller,
             templateUrl: 'blocks/directives/navsidebar/nav.sidebar.html',	

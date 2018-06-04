@@ -10,8 +10,15 @@
         
         var userObj = {};
         userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
-        
+		
 		let i = 0;
+		$scope.show_slide_ui = false;
+		
+		let ht = $("#slideshow_ul").height();
+		let vht = ht/length;
+
+		$("#slide").css({'height': vht});
+				
 		function next() {
 			let length = $("#slideshow_ul li").length;
 			if (i < length) {
@@ -20,6 +27,8 @@
 				let top = i * vht;
 				$("#slideshow").css({'margin-top': "-" + top + "px"});
 				$("#slide").css({'height': vht});
+				$scope.show_slide_ui = true;
+				$scope.$apply();
 				i = (i == (length - 1) ? 0 : i + 1);
 			}
 		}
@@ -31,7 +40,12 @@
 				$location.path('/login/');
 				$window.location.reload();
             }
-			setInterval(next, 3200);
+			else {
+				setTimeout(next, 10);
+				setInterval(function() {
+					next();
+				}, 3000);
+			}
         }
         
     }

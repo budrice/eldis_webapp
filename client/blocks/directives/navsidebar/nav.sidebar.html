@@ -1,8 +1,8 @@
-<div ng-class="navSidebarCss">
+<div ng-class="navSidebarContainCss">
 	<div class="list-group">
-		<a href ng-click="view('about')" class="list-group-item">About</a>
-		<a href ng-click="view('services')" class="list-group-item">Services</a>
-		<a href ng-click="view('contact')" class="list-group-item">Contact</a>
-		<a href ng-click="view('pricing')" class="list-group-item">Pricing Table</a>
+		<a href ng-click="view('about')" ng-class="navSidebarBtnCss" class="list-group-item">About</a>
+		<a href ng-click="view('services')" class="list-group-item" ng-class="navSidebarBtnCss">Services</a>
+		<a href ng-click="view('contact')" class="list-group-item" ng-class="navSidebarBtnCss">Contact</a>
+		<a href ng-click="view('pricing')" class="list-group-item" ng-class="navSidebarBtnCss">Pricing Table</a>
 	</div>
 </div>
