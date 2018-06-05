@@ -3,6 +3,10 @@ body {
 	font-size: 12px;
 	font-weight: 100;
 	color: #000099;
+	background-color: #ddd;
+	background-image: url('../images/bkgblu.jpg');
+	background-attachment: fixed;
+	background-size: cover;
 }
 #eldis_webapp_ngview {
 /*	background-attachment: fixed;
