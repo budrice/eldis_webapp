@@ -7,11 +7,11 @@
 	
 	function budNavSidebar(){
 		
-		controller.$inject = ['$scope'];
-		function controller($scope) {
+		controller.$inject = ['$scope', '$location'];
+		function controller($scope, $location) {
 			
 			$scope.view = (hash)=> {
-				window.location.hash = "#/" + hash;
+				$location.path('/' + hash + '/');
 			};
 			
 		}

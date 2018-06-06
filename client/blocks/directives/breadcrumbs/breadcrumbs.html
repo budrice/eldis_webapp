@@ -1,9 +1,9 @@
-<div class="container-fluid" ng-hide="current_location">
+<div class="container" id="bud_breadcrumbs" ng-hide="current_location">
 	<div class="row">
 		<div class="col-lg-12">
-			<ol class="breadcrumb" ng-class="breadcrumbsCss">
-				<li><a href="index.html">Home</a></li>
-			</ol>
+			<ul class="budcrumbs" ng-class="breadcrumbsCss">
+				<li ng-repeat="crumb in bread"><a href ng-click="view(crumb.hash)">{{crumb.hash}}&nbsp;/&nbsp;</a></li>
+			</ul>
 		</div>
 	</div>
 </div>

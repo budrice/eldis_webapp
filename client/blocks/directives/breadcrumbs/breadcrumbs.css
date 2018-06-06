@@ -1,3 +1,7 @@
-#eldis_webapp_breadcrumbs {
-	position: fixed;
+#bud_breadcrumbs {
+	background-color: transparent;
+}
+.budcrumbs li {
+	display: inline-block;
+	list-style-type: none;
 }

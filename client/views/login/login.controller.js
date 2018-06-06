@@ -5,9 +5,9 @@
     angular.module('app')
     .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$scope', 'AppService', 'msgbox'];
-    function LoginController($scope, AppService, msgbox) {
-        console.log('LOGIN CONTROLLER');
+    LoginController.$inject = ['$scope', 'AppService', 'msgbox', '$location'];
+    function LoginController($scope, AppService, msgbox, $location) {
+        console.log("LOGIN CONTROLLER");
         $scope.model = {};
         
         let is_logged_in;
@@ -20,7 +20,7 @@
             .then((result)=> {
                 if (result.data.is_logged_in === 1) {
                     window.sessionStorage.setItem('USER_OBJ', JSON.stringify(result.data));
-                    window.location = "/";
+                    $location.path('/home/');
                 }
                 else {
                     msgbox.warning("You are not logged in.");
@@ -31,7 +31,6 @@
         };
         
         $scope.register = ()=> {
-            console.log('register flag = ' + register_flag);
             register_flag++;
             switch (register_flag) {
                 case 1:
@@ -45,18 +44,18 @@
                 case 2:
                     let m = {};
                     m = $scope.model;
-                    if (m.password === m.repassword && $scope.login_form.$valid) {
+                    if (m.password === m.repassword && m.username && m.email_address) {// && $scope.login_form.$valid) {
                         AppService.Register($scope.model)
                         .then(()=> {
                             register_flag = 0;
                             $scope.message = "Registration succeeded.\nYou are able to log in.";
                             $scope.$apply();
-                            msgbox.success('Welcome.');
+                            msgbox.success("Welcome.");
                             
                         }, (error)=> {
                             register_flag = 0;
                             $scope.message = "Registration failed.\nYou are unable to log in.";
-                            msgbox.warning('Error. Registration failed.\nThe issue has been reported.\nRefresh and try again.');
+                            msgbox.warning("Error. Registration failed.\nThe issue has been reported.\nRefresh and try again.");
                             $scope.$apply();
                             console.log(error);
                         });
@@ -74,14 +73,14 @@
                             $scope.message = arg_key + " is already registered.";
                         }
                         else {
-                                $scope.message = "Welcome " + result.data[0].username + ", you are able to log in.";
-                                $scope.login_obj.view = {
-                                    login_btn: true,
-                                    registration_pass: false,
-                                    registration_btn: false,
-                                };
-                                $scope.login_obj.disabled.login_btn = false;
-                                $scope.model = result.data[0];
+                            $scope.message = "Welcome " + result.data[0].username + ", you are able to log in.";
+                            $scope.login_obj.view = {
+                                login_btn: true,
+                                registration_pass: false,
+                                registration_btn: false,
+                            };
+                            $scope.login_obj.disabled.login_btn = false;
+                            $scope.model = result.data[0];
                         }
                     }
                     else {
@@ -92,9 +91,6 @@
                 }, (error)=> {
                     console.log(error);
                 });
-            }
-            else {
-                msgbox.info('empty');
             }
         };
         
@@ -125,6 +121,7 @@
         }
         
         $('#eldis_app_login_container').keypress((event)=> {
+            console.log('enter key pressed');
             if (event.which == 13 && register_flag === 0) {
                 $scope.login();
             }

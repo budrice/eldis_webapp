@@ -12,7 +12,7 @@
 			$scope.current_location = window.location.hash === '#!/login/';
 			console.log('headbar ' + $scope.current_location);
 			$scope.view = (hash)=> {
-				window.location.hash = "#/" + hash + "/";
+				$location.path = "/" + hash + "/";
 			};
 			
 		}

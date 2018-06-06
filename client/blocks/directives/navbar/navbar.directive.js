@@ -10,31 +10,36 @@
 		controller.$inject = ['$scope', '$location', '$window'];
 		function controller($scope, $location, $window) {
 			$scope.user = {};
-			console.log('window.location.hash');
-			console.log(window.location.hash);
-			$scope.current_location = $location.hash === '#!/login/';
-			console.log('navbar ' + $scope.current_location);
+			// boolean to hide if on page login
+			$scope.current_location = window.location.hash === '#/login/';
+			console.log($scope.current_location);
+			/**
+			 * view
+			 * @param {String} hash
+			 */
 			$scope.view = (hash)=> {
-				console.log(hash);
 				$location.path("/" + hash + "/");
 			};
 			
+			/**
+			 * logout
+			 */
 			$scope.logout = ()=> {
-				console.log('log out');
 				window.sessionStorage.removeItem("USER_OBJ");
-				$location.path('/login/');
+				//$location.path('/login/');
 				$window.location.reload();
 			};
 			
-			function getLoginInformation() {
-				
-			}
-			
-			
-			init();
-			function init() {
-				getLoginInformation();
-			}
+			$scope.$on('$routeChangeStart', function($event, next) {
+				console.log(next);
+				if (next) {
+					$scope.current_location = window.location.hash === '#/login/';
+					setTimeout(()=> {
+						$scope.current_location = window.location.hash === '#/login/';
+						$scope.$digest();
+					}, 0);
+				}
+			});
 			
 		}
 		
@@ -44,7 +49,8 @@
                 
             },
             controller: controller,
-            templateUrl: 'blocks/directives/navbar/navbar.html',	
+            templateUrl: 'blocks/directives/navbar/navbar.html',
+			css: [{ href: 'blocks/directives/navbar/navbar.css'}]
 		};
 	}
 	

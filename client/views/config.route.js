@@ -2,7 +2,7 @@
 
     'use strict';
 
-    angular.module("app", ["ngRoute", "angularCSS"])
+    angular.module("app")
     .config(function($routeProvider) {
         $routeProvider
         .when("/login/", {
@@ -21,6 +21,11 @@
         })
         .when("/pricing/", {
             templateUrl: "views/404.html"
+        })
+        .when("/home/", {
+            templateUrl: "views/home/home.html",
+            controller: "HomeController",
+            css: [{ href: "/views/home/home.css" }]
         })
         .when("/", {
             templateUrl: "views/home/home.html",

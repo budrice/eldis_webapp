@@ -36,9 +36,7 @@
             if (userObj === null) {
                 msgbox.info('redirecting to login...');
 				$location.path('/login/');
-				$window.location.reload();
             }
-
         }
         
     }
