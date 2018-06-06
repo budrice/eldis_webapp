@@ -69,7 +69,6 @@
 			init();
 			function init() {
 				console.log('init');
-				console.log(window.location.hash);
 				if (Object.keys(userObj) > 0) {
 					if (window.location.hash === '#/login/') {
 						updateCrumbs('login');
@@ -79,7 +78,13 @@
 					}
 				}
 				else {
-					updateCrumbs('login');
+					if (window.location.hash === '#/login/') {
+						updateCrumbs('login');
+					}
+					else {
+						$scope.current_location = false;
+						getBreadcrumbs();
+					}
 				}
 				
 			}

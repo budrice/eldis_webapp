@@ -7,7 +7,7 @@
 
     LoginController.$inject = ['$scope', 'AppService', 'msgbox', '$location'];
     function LoginController($scope, AppService, msgbox, $location) {
-        console.log("LOGIN CONTROLLER");
+        
         $scope.model = {};
         
         let is_logged_in;
@@ -25,6 +25,7 @@
                 else {
                     msgbox.warning("You are not logged in.");
                 }
+                $scope.$apply();
             }, (error)=> {
                 console.log(error);
             });
@@ -108,7 +109,6 @@
         
         function getLogin() {
             is_logged_in = AppService.IsLoggedIn();
-            
             if (is_logged_in) {
                 $scope.message = "You are logged in.";
                 $scope.login_obj.view = {
@@ -121,7 +121,6 @@
         }
         
         $('#eldis_app_login_container').keypress((event)=> {
-            console.log('enter key pressed');
             if (event.which == 13 && register_flag === 0) {
                 $scope.login();
             }
