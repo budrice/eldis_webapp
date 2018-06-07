@@ -11,15 +11,14 @@
             css: [{ href: "/views/login/login.css" }]
         })
         .when("/about/", {
-            templateUrl: "views/404.html"
+            templateUrl: "views/about/about.html",
+            controller: "AboutController",
+            css: [{ href: "views/about/about.css" }]
         })
-        .when("/services/", {
+        .when("/technologies/", {
             templateUrl: "views/404.html"
         })
         .when("/contact/", {
-            templateUrl: "views/404.html"
-        })
-        .when("/pricing/", {
             templateUrl: "views/404.html"
         })
         .when("/home/", {

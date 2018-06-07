@@ -1,0 +1,20 @@
+div.img-frame {
+	padding: 0 10px;
+	background-color: #000099;
+	margin-bottom: 3px;
+}
+/*div.img-panel>div.panel {
+	padding: 10px;
+}*/
+div.img-panel {
+	background-color: #a9c8e0;
+	margin: 0;
+}
+div.img-icon {
+	float: left;
+}
+span.title {
+	font-family: Cambria;
+	font-size: 16px;
+	font-weight: 600;
+}

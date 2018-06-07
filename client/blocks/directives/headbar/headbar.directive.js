@@ -10,20 +10,20 @@
 		controller.$inject = ['$scope'];
 		function controller($scope) {
 			$scope.current_location = window.location.hash === '#!/login/';
-			console.log('headbar ' + $scope.current_location);
 			$scope.view = (hash)=> {
 				$location.path = "/" + hash + "/";
 			};
-			
 		}
 		
         return {
             restrict: 'EA',
             scope: {
-                headbarCss: '@'
+                headbarCss: '@',
+				headbar: '='
             },
 			controller: controller,
-            templateUrl: 'blocks/directives/headbar/headbar.html',	
+            templateUrl: 'blocks/directives/headbar/headbar.html',
+			css: [{ href: 'blocks/directives/headbar/headbar.css' }]
 		};
 	}
 	

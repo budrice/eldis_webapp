@@ -40,12 +40,18 @@
 					next();
 				});
 				// run carousel
-				setInterval(()=> {
+				let carousel_loop = setInterval(()=> {
 					next();
 				}, $scope.interval || 3000);
 				// end carousel on demand from parent
 				$scope.$watch('stopInterval', (event, value)=> {
 					if (value) {
+						clearInterval(carousel_loop);
+					}
+				});
+				$scope.$on('$routeChangeStart', function($event, next) {
+					
+					if (next) {
 						clearInterval(carousel_loop);
 					}
 				});

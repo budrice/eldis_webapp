@@ -31,3 +31,10 @@ body {
 	color: #0000ff;
 	/*text-shadow: 0 0 1px #0000ff;*/
 }
+.eldis_webapp_responsive_img {
+	width: 100%;
+	height: auto;
+}
+.thin-spaced-x {
+	padding: 3px;
+}

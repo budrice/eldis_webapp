@@ -7,12 +7,13 @@
 	
 	function budNavbar(){
 		
-		controller.$inject = ['$scope', '$location', '$window'];
-		function controller($scope, $location, $window) {
+		controller.$inject = ['$scope', '$location'];
+		function controller($scope, $location) {
+			
 			$scope.user = {};
 			// boolean to hide if on page login
 			$scope.current_location = window.location.hash === '#/login/';
-			console.log($scope.current_location);
+			
 			/**
 			 * view
 			 * @param {String} hash
@@ -26,12 +27,10 @@
 			 */
 			$scope.logout = ()=> {
 				window.sessionStorage.removeItem("USER_OBJ");
-				//$location.path('/login/');
-				$window.location.reload();
+				$location.path('/login/');
 			};
 			
 			$scope.$on('$routeChangeStart', function($event, next) {
-				console.log(next);
 				if (next) {
 					$scope.current_location = window.location.hash === '#/login/';
 					setTimeout(()=> {
