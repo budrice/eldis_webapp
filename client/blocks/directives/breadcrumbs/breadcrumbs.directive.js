@@ -10,7 +10,10 @@
 		controller.$inject = ['$scope', '$location'];
 		function controller($scope, $location) {
 			
-			let userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ')) || {};
+			$scope.bread = [];
+			
+			let userObj = {};
+			userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
 			$scope.view = (hash)=> {
 				$location.path ('/' + hash + '/');
 			};
@@ -60,25 +63,36 @@
 				}
 			});
 			
+			$scope.$watch('userObj', (event, value)=> {
+				if (value) {
+					value.bread = [];
+					value.bread = $scope.bread;
+					userObj = value;
+				}
+			});
+			
 			init();
 			function init() {
-				if (Object.keys(userObj) > 0) {
-					if (window.location.hash === '#/login/') {
-						updateCrumbs('login');
+				if (userObj) {
+					if (Object.keys(userObj) > 0) {
+						if (window.location.hash === '#/login/') {
+							updateCrumbs('login');
+						}
+						else {
+							getBreadcrumbs();
+						}
 					}
 					else {
-						getBreadcrumbs();
+						if (window.location.hash === '#/login/') {
+							updateCrumbs('login');
+						}
+						else {
+							$scope.current_location = false;
+							getBreadcrumbs();
+						}
 					}
 				}
-				else {
-					if (window.location.hash === '#/login/') {
-						updateCrumbs('login');
-					}
-					else {
-						$scope.current_location = false;
-						getBreadcrumbs();
-					}
-				}
+
 			}
 		}
 		

@@ -18,11 +18,6 @@
     <link type="text/css" rel="stylesheet" href="/stylesheets/fontawesome-5.0.13-all.css">
     <link type="text/css" rel="stylesheet" href="/stylesheets/style.css">
 
-
-
-
-
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -31,12 +26,12 @@
     <![endif]-->
 
 </head>
-
 <body>
     
     <div bud-navbar></div>
     <!--<div bud-headbar></div>-->
     <div bud-breadcrumbs breadcrumbs-css="budbreadcrumb"></div>
+    
     <div ng-view></div>
     <div bud-footbar></div>
     
@@ -74,11 +69,14 @@
     <script type="text/javascript" src="/views/home/home.controller.js"></script>
     <script type="text/javascript" src="/views/login/login.controller.js"></script>
     <script type="text/javascript" src="/views/about/about.controller.js"></script>
+    <script type="text/javascript" src="/views/admin/admin.controller.js"></script>
 <!-- services -->
     <script type="text/javascript" src="/services/app.service.js"></script>
+    <script type="text/javascript" src="/services/sidebar.service.js"></script>
     <script type="text/javascript" src="/services/msgbox.js"></script>
     
 <!-- directives -->
+    <script type="text/javascript" src="/blocks/directives/parse_style/parse.style.directive.js"></script>
     <script type="text/javascript" src="/blocks/directives/navbar/navbar.directive.js"></script>
     <script type="text/javascript" src="/blocks/directives/headbar/headbar.directive.js"></script>
     <script type="text/javascript" src="/blocks/directives/breadcrumbs/breadcrumbs.directive.js"></script>

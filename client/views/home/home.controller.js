@@ -5,8 +5,8 @@
     angular.module('app')
     .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'msgbox', '$location', '$window'];
-    function HomeController($scope, msgbox, $location, $window) {
+    HomeController.$inject = ['$scope', 'msgbox', '$location'];
+    function HomeController($scope, msgbox, $location) {
         
         var userObj = {};
         userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
@@ -29,14 +29,22 @@
 			alt: 'Sushi',
 			text: 'I just like sushi. I lived in Okinawa, Japan for eight years.'
 		}];
-
 		
 		init();
         function init() {
-            if (userObj === null) {
-                msgbox.info('redirecting to login...');
-				$location.path('/login/');
+            if (userObj !== null) {
+				if (userObj.token) {
+					// do check of token
+				}
+				else {
+					msgbox.info('redirecting to login...');
+					$location.path('/login/');
+				}
             }
+			else {
+				msgbox.info('redirecting to login...');
+				$location.path('/login/');
+			}
         }
         
     }

@@ -21,21 +21,16 @@ module.exports = function() {
     return {
         Login: login,
         Register: register,
-		//GetUsername: getUsername,
-		//GetEmailAddress: getEmailAddress,
 		Update: update,
 		BasicSearch: basicSearch
     };
     
     function login(member) {
-		console.log('@login');
 		let promise = new Promise((resolve, reject) => {
-			console.log(member);
 			let response = {};
 			validate(member).then((result) => {
-				console.log(result);
 				if (result.error) {
-					reject(result);
+					resolve(result);
 				}
 				else {
 					
@@ -56,18 +51,15 @@ module.exports = function() {
 							username: result.username,
 							is_logged_in: 1,
 							access_level: result.access_level,
-							token: result.token
+							token: genToken(result.id)
 						};
 						let update_object = {
 							id: result.id,
 							is_logged_in: 1
 						};
-						
-						//resolve(response);
-						
 						update(update_object, 'authentication').then((update) => {
 							if (update.error) {
-								reject(update);
+								resolve(update);
 							}
 							else {
 								resolve(response);
@@ -85,36 +77,43 @@ module.exports = function() {
     function validate(member) {
 		let promise = new Promise((resolve, reject) => {
 			if (!member.email_address && !member.username) {
-				reject("Missing email address and/or username.");
+				resolve({ error: { message: "Missing email address and/or username." }});
 			}
 			let sql =  "SELECT * FROM `authentication` ";
 				sql += "WHERE `id` = ?;";
-			db.query(sql, [member.id], function(error, result){
-				if (error){
-					reject(error);
-				}
-				else {
-					let response = {};
-					if (result.length > 0) {
-						if (bcrypt.compareSync(member.password, result[0].password)) {
-							response.result = {};
-							response = result[0];
-							response.token = (result[0].access_level > 2) ? genToken(result[0].id) : null;
-							resolve(response);
+			try {
+				db.query(sql, [member.id], function(error, result) {
+					if (error){
+						resolve(error);
+					}
+					else {
+						let response = {};
+						if (result.length > 0) {
+							if (bcrypt.compareSync(member.password, result[0].password)) {
+								response.result = {};
+								response = result[0];
+								response.token = (result[0].access_level > 2) ? genToken(result[0].id) : null;
+								resolve(response);
+							}
+							else {
+								console.log('incorrect password');
+								response.error = {};
+								response.error.message = "Your password is incorrect.";
+								resolve(response);
+							}
 						}
 						else {
 							response.error = {};
-							response.error.message = "Your password is incorrect.";
-							reject(response);
+							response.error.message = "Your username is incorrect.";
+							resolve(response);
 						}
 					}
-					else {
-						response.error = {};
-						response.error.message = "Your username is incorrect.";
-						reject(response);
-					}
-				}
-			});
+				});
+			}
+			catch (error) {
+				reject(error);
+			}
+
 		});
 		return promise;
     }
@@ -201,36 +200,6 @@ module.exports = function() {
 		});
 		return promise;
     }
-	
-	//function getUsername(username) {
-	//	let promise = new Promise((resolve, reject)=> {
-	//		let sql = "SELECT * FROM authentication WHERE `username` = ?;";
-	//		db.query(sql, [username], (error, result)=> {
-	//			if (error) {
-	//				reject(error);
-	//			}
-	//			else {
-	//				resolve(result);
-	//			}
-	//		});
-	//	});
-	//	return promise;
-	//}
-	//
-	//function getEmailAddress(email_address) {
-	//	let promise = new Promise((resolve, reject)=> {
-	//		let sql = "SELECT * FROM authentication WHERE `email_address` = ?;";
-	//		db.query(sql, [email_address], (error, result)=> {
-	//			if (error) {
-	//				reject(error);
-	//			}
-	//			else {
-	//				resolve(result);
-	//			}
-	//		});
-	//	});
-	//	return promise;
-	//}
 	
 };
 // private method

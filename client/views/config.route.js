@@ -5,6 +5,11 @@
     angular.module("app")
     .config(function($routeProvider) {
         $routeProvider
+        .when("/admin/", {
+            templateUrl: "views/admin/admin.html",
+            controller: "AdminController",
+            css: [{ href: "/views/admin/admin.css" }]
+        })
         .when("/login/", {
             templateUrl: "views/login/login.html",
             controller: "LoginController",

@@ -18,14 +18,16 @@
         $scope.login = ()=> {
             AppService.Login($scope.model)
             .then((result)=> {
-                if (result.data.is_logged_in === 1) {
-                    window.sessionStorage.setItem('USER_OBJ', JSON.stringify(result.data));
-                    $location.path('/home/');
+                if (result.data) {
+                    if (result.data.error) {
+                        $scope.message = result.data.error.message;
+                        msgbox.warning(result.data.error.message);
+                    }
+                    else {
+                        $location.path('/home/');
+                    }
+                    $scope.$apply();
                 }
-                else {
-                    msgbox.warning("You are not logged in.");
-                }
-                $scope.$apply();
             }, (error)=> {
                 console.log(error);
             });

@@ -37,14 +37,12 @@
 					url: '/api/v1/database/login',
 					data: dataObj
 				}).then((result)=> {
-					if (result.error) {
-						reject(result);
-					}
-					else {
-						let user_token = result.token;
-						window.sessionStorage.setItem('USER_TOKEN', JSON.stringify(user_token));
-						resolve(result);
-					}
+					console.log(result);
+					let user = {
+						token: (result.error) ? null : result.data.token
+					};
+					window.sessionStorage.setItem('USER_OBJ', JSON.stringify(user));
+					resolve(result);
 				}, (error)=> {
 					reject(error);
 				});
@@ -68,43 +66,6 @@
 				});
 			});
 		}
-		
-		//function getUsername(username) {
-		//	return new Promise((resolve, reject)=> {
-		//		$http({
-		//			method: 'GET',
-		//			url: '/api/v1/admin/getusername/' + username,
-		//		}).then((result)=> {
-		//			if (result.error) {
-		//				reject(result);
-		//			}
-		//			else {
-		//				resolve(result);
-		//			}
-		//		}, (error)=> {
-		//			reject(error);
-		//		});
-		//	});
-		//}
-		//
-		//function getEmailAddress(email_address) {
-		//	console.log(email_address);
-		//	return new Promise((resolve, reject)=> {
-		//		$http({
-		//			method: 'GET',
-		//			url: '/api/v1/admin/getemailaddress/' + email_address,
-		//		}).then((result)=> {
-		//			if (result.error) {
-		//				reject(result);
-		//			}
-		//			else {
-		//				resolve(result);
-		//			}
-		//		}, (error)=> {
-		//			reject(error);
-		//		});
-		//	});
-		//}
 		
 		/**
 		 * isLoggedIn

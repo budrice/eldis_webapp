@@ -1,8 +1,23 @@
-<div ng-class="navSidebarContainCss">
+<style parse-style>
+	a.bar_class {
+		background-color: {{ css.backcolor }};
+		color: {{ css.charcolor}};
+	}
+	a.bar_class:visited {
+		background-color: {{ css.backcolor }};
+		color: {{ css.charcolor}};
+	}
+	a.bar_class:hover {
+		background-color: {{ css.backhover }};
+		color: {{ css.charhover}};
+	}
+	a.bar_class:focus {
+		background-color: {{ css.backhover }};
+		color: {{ css.charhover}};
+	}
+</style>
+<div id="navsidebar" ng-class="bsgrid">
 	<div class="list-group">
-		<a href ng-click="view('about')" class="list-group-item">About</a>
-		<a href ng-click="view('services')" class="list-group-item">Services</a>
-		<a href ng-click="view('contact')" class="list-group-item">Contact</a>
-		<a href ng-click="view('pricing')" class="list-group-item">Pricing Table</a>
+		<a ng-repeat="bar in sidebars" href ng-click="view(bar.hash)" class="bar_class list-group-item">{{bar.label}}</a>
 	</div>
 </div>

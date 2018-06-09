@@ -11,6 +11,26 @@
         var userObj = {};
         userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
 		
+		$scope.sidebars = [{
+			hash: 'home',
+			label: 'Home'
+		},
+		{
+			hash: 'technologies',
+			label: 'Technologies'
+		},
+		{
+			hash: 'contact',
+			label: 'Contact'
+		}];
+		
+		$scope.sidebarCssObject = {
+			backcolor: '#003e6d',
+			backhover: '#003e6d',
+			charcolor: '#fff',
+			charhover: '#00ffff'
+		};
+		
 		$scope.imagebox = [{
 			icon: '../../images/construction.png',
 			icon_alt: 'hard hat',
@@ -54,10 +74,20 @@
 		
 		init();
         function init() {
-            if (userObj === null) {
-                msgbox.info('redirecting to login...');
-				$location.path('/login/');
+			console.log(userObj);
+            if (userObj !== null) {
+				if (userObj.token) {
+					// do check of token
+				}
+				else {
+					msgbox.info('redirecting to login...');
+					$location.path('/login/');
+				}
             }
+			else {
+				msgbox.info('redirecting to login...');
+				$location.path('/login/');
+			}
         }
         
     }

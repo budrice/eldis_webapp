@@ -1,0 +1,7 @@
+#navsidebar {
+	width: 200px;
+	left: 20px;
+	top: 200px;
+	position: absolute;
+	z-index: 9999;
+}

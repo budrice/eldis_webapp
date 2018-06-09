@@ -1,18 +1,32 @@
-    <!-- Container -->
-    <div class="container" id="eldis_webapp_home_container">
-        <bud-headbar headbar="{ title: 'Eldis Rice', subtitle: 'aka&nbsp;&quot;Buddy&quot;' }"></bud-headbar>
-        <!-- Content Row -->
-        <div class="row" id="eldis_webapp_home_content">
-            <!-- Sidebar Column -->
-            <bud-nav-sidebar nav-sidebar-contain-css="col-xs-3"></bud-nav-sidebar>
-            <!-- carousel -->
-            <div bud-carousel slideshow-splash="true" slide-show-contain-css="col-xs-8" carousel-array="carousel" interval="3200" stop-interval="stop_interval">
+<!-- Container -->
+<div class="container" id="eldis_webapp_home_container">
+    <div class="row">
+        <div class="col-md-3 col-lg-2"></div>
+        <div class="col-md-6 col-lg-8">
+            <div bud-headbar headbar="{ title: 'Eldis Rice', subtitle: 'aka&nbsp;&quot;Buddy&quot;' }"></div>
+        </div>
+        <div class="col-md-3 col-lg-2"></div>
+    </div>
+    
+    <!-- Content Row -->
+    <div class="row" id="eldis_webapp_home_content">
+        <!-- sidebar -->
+        
+        <div class="col-md-3 col-lg-2"></div>
+        <!-- carousel -->
+        <div class="col-md-6 col-lg-8">
+            <div bud-carousel slideshow-splash="true" carousel-array="carousel" interval="3200" stop-interval="stop_interval">
                 <h3>Welcome</h3>
                 <p>This is my Angular JS, Node JS and MySQL web app.</p>
                 <p>I wrote this to showcase my abilities with the JavaScript language.</p>
             </div>
-            <!-- /.Content -->
         </div>
-        <!-- /.Content Row -->
+        <div class="col-md-3 col-lg-2"></div>
+        <!-- /.Content -->
     </div>
-    <!-- /.Container -->
+    <!-- /.Content Row -->
+</div>
+<!-- /.Container -->
+
+<!-- Sidebar Column -->
+<div bud-nav-sidebar bsgrid-class="hidden-xs hidden-sm"></div>

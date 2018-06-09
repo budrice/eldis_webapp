@@ -1,6 +1,6 @@
 div.img-frame {
 	padding: 0 10px;
-	background-color: #000099;
+	background-color: #244244;
 	margin-bottom: 3px;
 }
 /*div.img-panel>div.panel {
@@ -8,7 +8,9 @@ div.img-frame {
 }*/
 div.img-panel {
 	background-color: #a9c8e0;
+	color: #000099;
 	margin: 0;
+	
 }
 div.img-icon {
 	float: left;
@@ -17,4 +19,8 @@ span.title {
 	font-family: Cambria;
 	font-size: 16px;
 	font-weight: 600;
+	color: #000099;
+}
+div.img-panel div.panel {
+	box-shadow: 2px 2px 3px #000099;
 }

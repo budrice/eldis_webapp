@@ -3,8 +3,9 @@
 	
 	 <!-- Row -->
 	<div class="row">
+		<!-- splash slide to allow the slideshow to load -->
 		<div id="bud_slideshow_splash" ng-show="slideshowSplash">
-			<img src="../../images/carousel_0.jpg" alt="loading...">
+			<img ng-src="{{carouselArray[0].src}}" alt="loading...">
 		</div>
 		<!-- Slideshow -->
 		<div id="bud_slideshow_slide" ng-show="slideshowSlide">
@@ -19,9 +20,8 @@
 		</div>
 	</div>
 	<!-- /.Row -->
+	
 	<!-- Row -->
-	
-	
 	<div class="row">
 		<!-- Panel -->
 		<div class="panel" id="bud_slideshow_panel" ng-show="showPanel || true">
@@ -30,6 +30,6 @@
 		<!-- /.Panel -->
 	</div>
 	<!-- /.Row -->
+	
 </div>
-
 <!-- /.SlideshowContain -->
