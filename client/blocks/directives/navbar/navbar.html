@@ -14,17 +14,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="eldis_webapp_nav_collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href ng-click="view('about')">About</a>
-                </li>
-                <li>
-                    <a href ng-click="view('technologies')">Technologies</a>
-                </li>
-                <li>
-                    <a href ng-click="view('contact')">Contact</a>
-                </li>
-                <li>
-                    <a href ng-click="logout()">Log out</a>
+                <li ng-repeat="link in links">
+                    <a href ng-click="view(link.hash)">{{link.lable}}</a>
                 </li>
             </ul>
         </div>

@@ -13,18 +13,26 @@
 			$scope.bread = [];
 			
 			let userObj = {};
+			
 			userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
+			
+			
 			$scope.view = (hash)=> {
 				$location.path ('/' + hash + '/');
 			};
 			
 			function updateCrumbs(hash_str) {
+				console.log();
 				if (hash_str == 'login') {
 					setTimeout(()=> {
 						$scope.bread = [{
 							hash: 'login',
+							label: 'Login'
 						}];
 						$scope.current_location = true;
+						userObj = {
+							bread: []
+						};
 						userObj.bread = $scope.bread;
 						window.sessionStorage.setItem('USER_OBJ', JSON.stringify(userObj));
 						$scope.$digest();
@@ -39,7 +47,8 @@
 						}
 						else {
 							$scope.bread.push({
-								hash: hash_str
+								hash: hash_str,
+								label: hash_str.firstUpper()
 							});
 						}
 						userObj.bread = $scope.bread;
@@ -64,6 +73,7 @@
 			});
 			
 			$scope.$watch('userObj', (event, value)=> {
+				console.log(value);
 				if (value) {
 					value.bread = [];
 					value.bread = $scope.bread;
