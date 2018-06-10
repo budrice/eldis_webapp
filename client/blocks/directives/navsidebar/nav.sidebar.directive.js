@@ -9,22 +9,13 @@
 		
 		controller.$inject = ['$scope', '$location'];
 		function controller($scope, $location) {
-			$scope.sidebars = {};
-			$scope.sidebars.nav_array = [];
+			$scope.sidebars = [];
 			$scope.css = {};
 			
 			
-			setTimeout(()=> {
-				let array = [];
-				let object = {};
-				$scope.sidebars.nav_array = angular.copy(array.getDefaultNavLinks());
-				$scope.css = angular.copy(object.navStyle());
-				console.log($scope.css);
-				$scope.$apply();
-			}, 0);
-			//
-			//$scope.css.navStyle();
-			//let buddy = 'buddy';
+			let array = [];
+			$scope.sidebars = angular.copy(array.getDefaultNavLinks());
+			$scope.css = angular.copy(array.navStyle()[0]);
 			
 			$scope.view = (hash)=> {
 				$location.path('/' + hash + '/');

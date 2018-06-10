@@ -31,13 +31,13 @@
             return nav_array;
         };
         
-        Object.prototype.navStyle = ()=> {
-            let nav_style = {
+        Array.prototype.navStyle = ()=> {
+            let nav_style = [{
 				backcolor: '#003e6d',
 				backhover: '#003e6d',
 				charcolor: '#fff',
 				charhover: '#00ffff'
-            };
+            }];
             return nav_style;
         };
         
