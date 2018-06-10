@@ -9,13 +9,7 @@
         $locationProvider.hashPrefix('');
     }])
 	.run(()=> {
-        
-        String.prototype.firstUpper = ()=> {
-            return this.charAt(0).toUpperCase() + this.slice(1);
-        };
-        
         Array.prototype.getDefaultNavLinks = ()=> {
-			
             let nav_array = [{
                 hash: 'home',
                 label: 'Home'
@@ -30,7 +24,6 @@
             }];
             return nav_array;
         };
-        
         Array.prototype.navStyle = ()=> {
             let nav_style = [{
 				backcolor: '#003e6d',
@@ -40,11 +33,6 @@
             }];
             return nav_style;
         };
-        
-        
-        
-        
-        
     });
     
 })();

@@ -40,8 +40,6 @@
 					url: '/api/v1/database/login',
 					data: dataObj
 				}).then((result)=> {
-					console.log(result);
-					console.log(user);
 					user.token = (result.error) ? null : result.data.token;
 					window.sessionStorage.setItem('USER_OBJ', JSON.stringify(user));
 					resolve(result);

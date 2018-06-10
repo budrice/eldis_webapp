@@ -1,0 +1,6 @@
+nav#budnavbar {
+	border-bottom: 1px solid #fff;
+}
+nav#budnavbar div.container {
+	max-width: 1012px;
+}

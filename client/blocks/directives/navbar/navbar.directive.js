@@ -10,6 +10,7 @@
 		controller.$inject = ['$scope', '$location'];
 		function controller($scope, $location) {
 			
+			$scope.links = [];
 			$scope.user = {};
 			// boolean to hide if on page login
 			$scope.current_location = window.location.hash === '#/login/';
@@ -31,25 +32,27 @@
 			};
 			
 			$scope.$on('$routeChangeStart', function($event, next) {
-				console.log(next);
 				if (next) {
 					setTimeout(()=> {
-						//$scope.links = [];
-						//$scope.links.getDefaultNavLinks();
 						$scope.current_location = window.location.hash === '#/login/';
 						$scope.$digest();
 					}, 0);
 				}
 			});
+			let array = [];
 			$scope.links = [];
-			//$scope.links.getDefaultNavLinks();
-			
+			$scope.links = angular.copy(array.getDefaultNavLinks());
+			$scope.css = {};
+			$scope.css = angular.copy(array.navStyle()[0]);
+			$scope.current_location = window.location.hash === '#/login/';
+			setTimeout(()=> { $scope.$digest(); }, 0);
 		}
 		
         return {
             restrict: 'EA',
             scope: {
-                
+				navTitle: '@',
+                linkCss: '='
             },
             controller: controller,
             templateUrl: 'blocks/directives/navbar/navbar.html',

@@ -45,8 +45,9 @@
 						else {
 							$scope.bread.push({
 								hash: hash_str,
-								label: (hash_str) ? hash_str.firstUpper() : ''
+								label: hash_str.charAt(0).toUpperCase() + hash_str.slice(1)
 							});
+							$scope.$digest();
 						}
 						userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
 						userObj.bread = [];
@@ -64,7 +65,6 @@
 			
 			$scope.$on('$routeChangeStart', function($event, next) {
 				if (next) {
-					console.log(next);
 					let len = next.$$route.originalPath.length;
 					let hash = next.$$route.originalPath.slice(1, (len -1));
 					updateCrumbs(hash);
