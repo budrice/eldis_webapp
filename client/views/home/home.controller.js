@@ -32,6 +32,7 @@
 		
 		init();
         function init() {
+			console.log(userObj);
             if (userObj !== null) {
 				if (userObj.token) {
 					// do check of token

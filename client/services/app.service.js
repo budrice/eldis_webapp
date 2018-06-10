@@ -32,20 +32,23 @@
 		
 		function login(dataObj) {
             return new Promise((resolve, reject)=> {
+				let user = {};
+				user = getUserObject();
+				
 				$http({
 					method: 'POST',
 					url: '/api/v1/database/login',
 					data: dataObj
 				}).then((result)=> {
 					console.log(result);
-					let user = {
-						token: (result.error) ? null : result.data.token
-					};
+					console.log(user);
+					user.token = (result.error) ? null : result.data.token;
 					window.sessionStorage.setItem('USER_OBJ', JSON.stringify(user));
 					resolve(result);
 				}, (error)=> {
 					reject(error);
 				});
+				
 			});
         }
 		

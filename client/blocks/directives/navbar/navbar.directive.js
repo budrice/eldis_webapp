@@ -10,8 +10,6 @@
 		controller.$inject = ['$scope', '$location'];
 		function controller($scope, $location) {
 			
-			let userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
-			$scope.links = [];
 			$scope.user = {};
 			// boolean to hide if on page login
 			$scope.current_location = window.location.hash === '#/login/';
@@ -35,17 +33,16 @@
 			$scope.$on('$routeChangeStart', function($event, next) {
 				console.log(next);
 				if (next) {
-					userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
-					
-					userObj = (userObj === null) ? { bread : [] } : userObj;
-					console.log(userObj.bread);
 					setTimeout(()=> {
-						$scope.links = userObj.bread;
+						//$scope.links = [];
+						//$scope.links.getDefaultNavLinks();
 						$scope.current_location = window.location.hash === '#/login/';
 						$scope.$digest();
 					}, 0);
 				}
 			});
+			$scope.links = [];
+			//$scope.links.getDefaultNavLinks();
 			
 		}
 		

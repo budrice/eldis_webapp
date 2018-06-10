@@ -9,33 +9,25 @@
 		
 		controller.$inject = ['$scope', '$location'];
 		function controller($scope, $location) {
+			$scope.sidebars = {};
+			$scope.sidebars.nav_array = [];
+			$scope.css = {};
+			
+			
+			setTimeout(()=> {
+				let array = [];
+				let object = {};
+				$scope.sidebars.nav_array = angular.copy(array.getDefaultNavLinks());
+				$scope.css = angular.copy(object.navStyle());
+				console.log($scope.css);
+				$scope.$apply();
+			}, 0);
+			//
+			//$scope.css.navStyle();
+			//let buddy = 'buddy';
 			
 			$scope.view = (hash)=> {
 				$location.path('/' + hash + '/');
-			};
-			
-			$scope.sidebars = [{
-				hash: 'home',
-				label: 'Home'
-			},
-			{
-				hash: 'about',
-				label: 'About'
-			},
-			{
-				hash: 'technologies',
-				label: 'Technologies'
-			},
-			{
-				hash: 'contact',
-				label: 'Contact'
-			}];
-			
-			$scope.css = {
-				backcolor: '#003e6d',
-				backhover: '#003e6d',
-				charcolor: '#fff',
-				charhover: '#00ffff'
 			};
 			
 			$scope.$watch('bsgridClass', (event, value)=> {
