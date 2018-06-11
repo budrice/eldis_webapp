@@ -9,9 +9,11 @@
 		
 		controller.$inject = ['$scope', '$location'];
 		function controller($scope, $location) {
+			
+			//let user_object = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
+			//$scope.user = {};
 			$scope.sidebars = [];
 			$scope.css = {};
-			
 			
 			let array = [];
 			$scope.sidebars = angular.copy(array.getDefaultNavLinks());
@@ -32,6 +34,14 @@
 				$scope.bsgrid = value;
 			});
 			
+			//init();
+			//function init() {
+			//	if (user_object !== null) {
+			//		$scope.user = {
+			//			
+			//		};
+			//	}
+			//}
 		}
 		
         return {

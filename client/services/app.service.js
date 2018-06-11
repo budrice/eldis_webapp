@@ -33,8 +33,7 @@
 		function login(dataObj) {
             return new Promise((resolve, reject)=> {
 				let user = {};
-				user = getUserObject();
-				
+				user = getUserObject() || {};
 				$http({
 					method: 'POST',
 					url: '/api/v1/database/login',
