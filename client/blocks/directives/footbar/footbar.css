@@ -1,9 +1,11 @@
-footer.eldis_webapp_footbar {
+footer#eldis_webapp_footbar {
 	position: fixed;
 	left: 0;
 	bottom: 0;
 	width: 100%;
+	padding: 10px 20px;
 	background-color: #003e6d;
+	border-top: 1px solid #fff;
 	color: #fff;
 	text-align: center;
 	margin-bottom: 0;

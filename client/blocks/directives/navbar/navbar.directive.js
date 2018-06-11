@@ -52,6 +52,8 @@
             restrict: 'EA',
             scope: {
 				navTitle: '@',
+				navbarIcon: '@',
+				navbarIconAlt: '@',
                 linkCss: '='
             },
             controller: controller,

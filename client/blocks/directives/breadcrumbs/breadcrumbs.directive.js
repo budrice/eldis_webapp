@@ -13,7 +13,6 @@
 			$scope.bread = [];
 			
 			let userObj = {};
-			
 			userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
 			
 			$scope.view = (hash)=> {
@@ -68,7 +67,7 @@
 					let len = next.$$route.originalPath.length;
 					let hash = next.$$route.originalPath.slice(1, (len -1));
 					updateCrumbs(hash);
-					$scope.view(hash);
+					//$scope.view(hash);
 				}
 			});
 			
@@ -85,6 +84,7 @@
 					}
 					else {
 						if (window.location.hash === '#/login/') {
+							$scope.current_location = true;
 							updateCrumbs('login');
 						}
 						else {

@@ -17,6 +17,13 @@
 			$scope.sidebars = angular.copy(array.getDefaultNavLinks());
 			$scope.css = angular.copy(array.navStyle()[0]);
 			
+			if (window.location.hash === '#/login/') {
+				$scope.current_location = true;
+			}
+			else {
+				$scope.current_location = false;
+			}
+			
 			$scope.view = (hash)=> {
 				$location.path('/' + hash + '/');
 			};

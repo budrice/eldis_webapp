@@ -8,7 +8,7 @@
 	app.config(['$locationProvider', ($locationProvider)=> {
         $locationProvider.hashPrefix('');
     }])
-	.run(()=> {
+	.run(['$rootScope', 'AppService', '$location', 'msgbox', ($rootScope, AppService, $location, msgbox)=> {
         Array.prototype.getDefaultNavLinks = ()=> {
             let nav_array = [{
                 hash: 'home',
@@ -21,6 +21,10 @@
 			{
                 hash: 'technologies',
                 label: 'Technologies'
+            },
+			{
+                hash: 'contact',
+                label: 'Contact Eldis'
             }];
             return nav_array;
         };
@@ -33,6 +37,31 @@
             }];
             return nav_style;
         };
-    });
+		
+		$rootScope.$on('$locationChangeStart', function (event, next, current) {
+			console.log(event);
+			console.log(next);
+			console.log(current);
+			
+			
+			let user_object = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
+			if (user_object !== null) {
+				if (user_object.token) {
+					AppService.BasicSearch( 'authentication', 'token', user_object.token)
+					.then((result)=> {
+						if (result.data.length === 0) {
+							msgbox.warning('Redirecting to login.');
+							window.sessionStorage.removeItem('USER_OBJ');
+							$location.path('/login/');
+						}
+					}, (error)=> {
+						console.log(error);
+					});
+				}
+			}
+
+			//App.Service.BasicSearch()
+        });
+    }]);
     
 })();

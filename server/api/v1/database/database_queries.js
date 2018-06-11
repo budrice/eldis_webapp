@@ -55,7 +55,8 @@ module.exports = function() {
 						};
 						let update_object = {
 							id: result.id,
-							is_logged_in: 1
+							is_logged_in: 1,
+							token: response.token
 						};
 						update(update_object, 'authentication').then((update) => {
 							if (update.error) {

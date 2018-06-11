@@ -1,10 +1,7 @@
-
-
 div#eldis_app_login_box {
 	width: 300px;
-	left: 15%;
-	top: 20%;
-	position: absolute;
+	margin-top: 150px;
+	position: relative;
 	padding: 10px;
 	background-color: rgba(0, 62, 109, 0.5);
 	box-shadow: 3px 3px 6px #000;

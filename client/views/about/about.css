@@ -2,3 +2,13 @@
 	max-width: 1012px;
 	margin-bottom: 27px;
 }
+.about-talents {
+	width: 100%;
+	font-size: 18px;
+	font-family: sans-serif;
+	font-weight: 100;
+	padding: 3px;
+	background: #000;
+	color: #fff;
+	margin-bottom: 6px;
+}

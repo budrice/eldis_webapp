@@ -1,17 +1,17 @@
 <style parse-style>
-	a.bar_class {
+	li a.bar_class {
 		background-color: {{ css.backcolor }};
 		color: {{ css.charcolor }};
 	}
-	a.bar_class:visited {
+	li a.bar_class:visited {
 		background-color: {{ css.backcolor }};
 		color: {{ css.charcolor }};
 	}
-	a.bar_class:hover {
+	li a.bar_class:hover {
 		background-color: {{ css.backhover }};
 		color: {{ css.charhover }};
 	}
-	a.bar_class:focus {
+	li a.bar_class:focus {
 		background-color: {{ css.backhover }};
 		color: {{ css.charhover }};
 	}
@@ -19,9 +19,21 @@
         background-color: {{ css.backcolor }};
         color: {{ css.backcolor }};
     }
+	a span.navbar-title {
+		color: {{ css.charcolor }};
+	}
+	a span.navbar-title:visited {
+		color: {{ css.charcolor }};
+	}
+	a span.navbar-title:hover {
+		color: {{ css.charhover }};
+	}
+	a span.navbar-title:focus {
+		color: {{ css.charhover }};
+	}
 </style>
 <!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" id="budnavbar" role="navigation" ng-hide="current_location">
+<nav class="navbar navbar-fixed-top" id="budnavbar" role="navigation" ng-hide="current_location">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -31,17 +43,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href ng-click="view('home')">{{navTitle}}</a>
+            <a class="navbar-brand" href ng-click="view('home')">
+			<div class="navbar-img-icon">
+				<img ng-src="{{navbarIcon}}" alt="{{navbarIconAlt}}" width="35" height="35">&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+			<span class="navbar-title">{{navTitle}}</span>
+			</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="eldis_webapp_nav_collapse">
             
             <ul class="nav navbar-nav navbar-right">
                 <li ng-repeat="link in links">
-                    <a class="" href ng-click="view(link.hash)"><strong>{{link.label}}</strong></a>
+                    <a class="bar_class" href ng-click="view(link.hash)"><strong>{{link.label}}</strong></a>
                 </li>
                 <li>
-                    <a class="" ng-click="logout()"><strong>Logout</strong></a>
+                    <a class="bar_class" href ng-click="logout()"><strong>Logout</strong></a>
                 </li>
             </ul>
             

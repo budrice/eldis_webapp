@@ -21,6 +21,11 @@
             css: [{ href: "views/about/about.css" }]
         })
         .when("/technologies/", {
+            templateUrl: "views/technologies/technologies.html",
+            controller: 'TechnologiesController',
+            css: [{ href: 'views/technologies/technologies.css' }]
+        })
+        .when("/contact/", {
             templateUrl: "views/404.html"
         })
         .when("/contact/", {

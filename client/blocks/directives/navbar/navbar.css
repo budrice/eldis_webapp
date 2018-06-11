@@ -4,3 +4,7 @@ nav#budnavbar {
 nav#budnavbar div.container {
 	max-width: 1012px;
 }
+.navbar-img-icon {
+	float: left;
+	margin: -7px;
+}

@@ -131,8 +131,9 @@
             }
         });
         
-        init();
+
         
+        init();
         function init() {
             getLogin();
             setBtnsDefault();

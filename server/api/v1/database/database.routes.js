@@ -31,22 +31,5 @@ router.get('/basicsearch/:table/:key/:value', (req, res)=> {
         res.json(error);
     });
 });
-//router.get('/getusername/:username', (req, res)=> {
-//    database.GetUsername(req.params.username)
-//    .then((result)=> {
-//        res.json(result);
-//    }, (error)=> {
-//        res.json(error);
-//    });
-//});
-//router.get('/getemailaddress/:email_address', (req, res)=> {
-//    console.log(req.params.email_address);
-//    database.GetEmailAddress(req.params.email_address)
-//    .then((result)=> {
-//        res.json(result);
-//    }, (error)=> {
-//        res.json(error);
-//    });
-//});
 
 module.exports = router;

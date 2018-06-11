@@ -1,7 +1,12 @@
 #navsidebar {
 	width: 200px;
 	left: 20px;
-	top: 200px;
+	top: 153px;
 	position: absolute;
 	z-index: 9999;
+}
+#eldis_sig {
+	width: 200px;
+	border: 1px solid #fff;
+	margin-top: -4px;
 }

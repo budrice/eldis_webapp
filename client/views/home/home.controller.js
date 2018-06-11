@@ -5,11 +5,8 @@
     angular.module('app')
     .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'msgbox', '$location'];
-    function HomeController($scope, msgbox, $location) {
-        
-        var userObj = {};
-        userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
+    HomeController.$inject = ['$scope'];
+    function HomeController($scope) {
 		
 		$scope.carousel = [{
 			id: 1,
@@ -29,23 +26,6 @@
 			alt: 'Sushi',
 			text: 'I just like sushi. I lived in Okinawa, Japan for eight years.'
 		}];
-		
-		init();
-        function init() {
-            if (userObj !== null) {
-				if (userObj.token) {
-					// do check of token
-				}
-				else {
-					msgbox.info('redirecting to login...');
-					$location.path('/login/');
-				}
-            }
-			else {
-				msgbox.info('redirecting to login...');
-				$location.path('/login/');
-			}
-        }
         
     }
 })();

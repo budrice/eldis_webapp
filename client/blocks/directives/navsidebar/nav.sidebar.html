@@ -1,23 +1,25 @@
 <style parse-style>
-	a.bar_class {
-		background-color: {{ css.backcolor }};
+	a.navsidebar_bar_class {
+		background: linear-gradient(#000, {{ css.backcolor }});
 		color: {{ css.charcolor }};
 	}
-	a.bar_class:visited {
-		background-color: {{ css.backcolor }};
+	a.navsidebar_bar_class:visited {
+		background: linear-gradient(#000, {{ css.backcolor }});
 		color: {{ css.charcolor}};
 	}
-	a.bar_class:hover {
-		background-color: {{ css.backhover }};
+	a.navsidebar_bar_class:hover {
+		background: {{ css.backhover }};
 		color: {{ css.charhover }};
 	}
-	a.bar_class:focus {
-		background-color: {{ css.backhover }};
+	a.navsidebar_bar_class:focus {
+		background: {{ css.backhover }};
 		color: {{ css.charhover }};
 	}
 </style>
-<div id="navsidebar" ng-class="bsgrid">
+<div id="navsidebar" ng-class="bsgrid" ng-hide="current_location">
 	<div class="list-group">
-		<a ng-repeat="bar in sidebars" href ng-click="view(bar.hash)" class="bar_class list-group-item">{{bar.label}}</a>
+		<a ng-repeat="bar in sidebars" href ng-click="view(bar.hash)" class="navsidebar_bar_class list-group-item">{{bar.label}}</a>
+		<img src="../../../images/eldis_sig.jpg" alt="eldis" id="eldis_sig">
 	</div>
+	
 </div>
