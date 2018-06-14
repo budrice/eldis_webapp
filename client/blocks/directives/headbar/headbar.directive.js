@@ -9,10 +9,7 @@
 		
 		controller.$inject = ['$scope'];
 		function controller($scope) {
-			$scope.current_location = window.location.hash === '#!/login/';
-			$scope.view = (hash)=> {
-				$location.path = "/" + hash + "/";
-			};
+			
 		}
 		
         return {

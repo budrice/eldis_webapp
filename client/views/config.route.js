@@ -29,7 +29,9 @@
             templateUrl: "views/404.html"
         })
         .when("/contact/", {
-            templateUrl: "views/404.html"
+            templateUrl: "views/contact/contact.html",
+            controller: 'ContactController',
+            css: [{ href: 'views/contact/contact.css' }]
         })
         .when("/home/", {
             templateUrl: "views/home/home.html",

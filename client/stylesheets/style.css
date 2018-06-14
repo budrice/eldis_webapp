@@ -2,8 +2,8 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	font-weight: 100;
-	color: #fff;
-	
+	color: #a2a2a2;
+	text-shadow: 0 0 2px #000;
 	/* Carbon by Atle Mo (design), Sébastien Grosjean (code) http://lea.verou.me/css3patterns/#carbon */
 	background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
 				linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
@@ -17,7 +17,11 @@ body {
 	
 	background-attachment: fixed;
 }
-
+.jumbotron,
+.panel {
+	background-color: #343a40;
+	border: 1px solid #767676;
+}
 #eldis_webapp_ngview {
 	overflow-y: scroll;
 }
@@ -48,6 +52,12 @@ body {
 }
 .nopad {
 	padding:0;
+}
+.right {
+	float: right;
+}
+.left {
+	float: left;
 }
 .404 {
 	max-width: 1012px;
