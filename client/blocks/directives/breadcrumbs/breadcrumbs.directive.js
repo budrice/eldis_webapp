@@ -10,7 +10,7 @@
 		controller.$inject = ['$scope', '$location'];
 		function controller($scope, $location) {
 			
-			$scope.bread = [];
+			$scope.bread = [{ hash: 'login', label: 'Login' }];
 			
 			let userObj = {};
 			userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
@@ -22,14 +22,7 @@
 			function updateCrumbs(hash_str) {
 				if (hash_str == 'login') {
 					setTimeout(()=> {
-						$scope.bread = [{
-							hash: 'login',
-							label: 'Login'
-						}];
-						$scope.current_location = true;
-						userObj = (userObj === null) ? {}: userObj;
-						userObj.bread = [];
-						userObj.bread = $scope.bread;
+						userObj.bread = [{ hash: 'login', label: 'Login' }];
 						window.sessionStorage.setItem('USER_OBJ', JSON.stringify(userObj));
 						$scope.$digest();
 					}, 0);
@@ -52,7 +45,6 @@
 						userObj.bread = [];
 						userObj.bread = $scope.bread;
 						window.sessionStorage.setItem('USER_OBJ', JSON.stringify(userObj));
-						$scope.current_location = false;
 						$scope.$digest();
 					}, 0);
 				}
@@ -67,30 +59,17 @@
 					let len = next.$$route.originalPath.length;
 					let hash = next.$$route.originalPath.slice(1, (len -1));
 					updateCrumbs(hash);
-					//$scope.view(hash);
 				}
 			});
 			
 			init();
 			function init() {
-				if (userObj) {
-					if (Object.keys(userObj) > 0) {
-						if (window.location.hash === '#/login/') {
-							updateCrumbs('login');
-						}
-						else {
-							getBreadcrumbs();
-						}
+				if (userObj !== null) {
+					if (window.location.hash === '#/login/') {
+						updateCrumbs('login');
 					}
 					else {
-						if (window.location.hash === '#/login/') {
-							$scope.current_location = true;
-							updateCrumbs('login');
-						}
-						else {
-							$scope.current_location = false;
-							getBreadcrumbs();
-						}
+						getBreadcrumbs();
 					}
 				}
 			}

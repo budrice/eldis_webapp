@@ -9,7 +9,15 @@
 		
 		controller.$inject = ['$scope'];
 		function controller($scope) {
-			
+			$scope.current_location = window.location.hash === '#/login/';
+			$scope.$on('$routeChangeStart', function($event, next) {
+				if (next) {
+					setTimeout(()=> {
+						$scope.current_location = window.location.hash === '#/login/';
+						$scope.$digest();
+					}, 0);
+				}
+			});
 		}
 		
         return {
