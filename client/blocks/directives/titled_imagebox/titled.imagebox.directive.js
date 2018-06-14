@@ -10,7 +10,6 @@
         return {
             restrict: 'EA',
             scope: {
-                frameCss: '@',
 				imagebox: '='
             },
 			transclude: true,

@@ -1,14 +1,16 @@
+div#eldis_app_login_container {
+	max-width: 1012px;
+	height: 76vh;
+}
 div#eldis_app_login_box {
 	width: 300px;
-	margin-top: 150px;
 	position: relative;
 	padding: 10px;
-	background-color: rgba(0, 62, 109, 0.5);
-	box-shadow: 3px 3px 6px #000;
-	z-index: 999;
+	background-color: #343a40;
+	border: 1px solid #767676;
 }
 div#eldis_app_login_box p {
-	color: rgba(0, 255, 255, 1);
+	color: #28a745;
 	text-shadow: 0 0 2px rgba(0, 0, 0, 1);
 }
 div#eldis_app_login_box label {

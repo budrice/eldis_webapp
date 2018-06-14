@@ -3,10 +3,11 @@ footer#eldis_webapp_footbar {
 	left: 0;
 	bottom: 0;
 	width: 100%;
-	padding: 10px 20px;
-	background-color: #003e6d;
-	border-top: 1px solid #fff;
-	color: #fff;
-	text-align: center;
+	padding: 10px 0 0 20px;
+	background: transparent;
+/*	background-color: #343a40;
+	border-top: 1px solid #767676;
+	color: rgba(255, 255, 255, .5);*/
+	text-align: left;
 	margin-bottom: 0;
 }

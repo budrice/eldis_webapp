@@ -1,25 +1,23 @@
-<style parse-style>
-	a.navsidebar_bar_class {
-		background: linear-gradient(#000, {{ css.backcolor }});
-		color: {{ css.charcolor }};
-	}
-	a.navsidebar_bar_class:visited {
-		background: linear-gradient(#000, {{ css.backcolor }});
-		color: {{ css.charcolor}};
-	}
-	a.navsidebar_bar_class:hover {
-		background: {{ css.backhover }};
-		color: {{ css.charhover }};
-	}
-	a.navsidebar_bar_class:focus {
-		background: {{ css.backhover }};
-		color: {{ css.charhover }};
-	}
-</style>
-<div id="navsidebar" ng-class="bsgrid" ng-hide="current_location">
-	<div class="list-group">
-		<a ng-repeat="bar in sidebars" href ng-click="view(bar.hash)" class="navsidebar_bar_class list-group-item">{{bar.label}}</a>
-		<img src="../../../images/eldis_sig.jpg" alt="eldis" id="eldis_sig">
-	</div>
-	
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        <aside class="col-12 col-sm-3 col-md-3 col-lg-2 p-0 bg-dark" id="navsidebar">
+            <nav class="navbar navbar-expand-xs navbar-dark bg-dark flex-column flex-row align-items-start py-2">
+				<a class="navbar-brand" href ng-click="view('home')">
+					<img ng-src="{{navbarIcon}}" alt="{{navbarIconAlt}}" width="35" height="35">&nbsp;
+					<span>Hello {{username}}</span>
+				</a>
+                <div id="navbarNavDropdown">
+                    <ul class="flex-sm-column flex-sm-row navbar-nav w-100 justify-content-between">
+                        <li class="nav-item" ng-repeat="bar in sidebars" ng-hide="current_location">
+                            <a class="nav-link pl-0" href ng-click="view(bar.hash)"><span class="d-md-inline">{{bar.label}}</span></a>
+                        </li>
+						<li class="right nav-item" ng-hide="current_location">
+							<button class="btn btn-info" href ng-click="logout()">Logout</button>
+						</li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <main class="col bg-faded py-3"><ng-transclude></ng-transclude></main>
+    </div>
 </div>

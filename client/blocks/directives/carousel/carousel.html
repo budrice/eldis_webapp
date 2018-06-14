@@ -1,35 +1,27 @@
-<!-- SlideshowContain -->
-<div id="bud_slideshow_container" ng-class="slideShowContainCss">
-	
-	 <!-- Row -->
-	<div class="row">
-		<!-- splash slide to allow the slideshow to load -->
-		<div id="bud_slideshow_splash" ng-show="slideshowSplash">
-			<img ng-src="{{carouselArray[0].src}}" alt="loading...">
+<div id="carousel_eldis_webapp" class="carousel slide" data-ride="carousel">
+	<ol class="carousel-indicators">
+		<li data-target="#carousel_eldis_webapp" data-slide-to="0" class="active"></li>
+		<li data-target="#carousel_eldis_webapp" data-slide-to="1"></li>
+		<li data-target="#carousel_eldis_webapp" data-slide-to="2"></li>
+	</ol>
+	<div class="carousel-inner">
+		<div class="carousel-item active">
+			<img ng-src="{{carouselArray[0].src}}" alt="{{carouselArray[0].alt}}">
+			<div class="carousel-caption">
+				<p>{{carouselArray[0].text}}</p>
+			</div> 
 		</div>
-		<!-- Slideshow -->
-		<div id="bud_slideshow_slide" ng-show="slideshowSlide">
-			<div id="bud_slideshow_slide_frame">
-				<ul id="bud_slideshow_ul">
-					<li ng-repeat="image in carouselArray">
-						<img ng-src="{{image.src}}" alt="{{image.alt}}">
-					</li>
-				</ul>
-			</div>
-			<!-- /.Slideshow -->
+		<div class="carousel-item">
+			<img ng-src="{{carouselArray[1].src}}" alt="{{carouselArray[1].alt}}">
+			<div class="carousel-caption">
+				<p>{{carouselArray[1].text}}</p>
+			</div> 
+		</div>
+		<div class="carousel-item">
+			<img ng-src="{{carouselArray[2].src}}" alt="{{carouselArray[2].alt}}">
+			<div class="carousel-caption">
+				<p>{{carouselArray[2].text}}</p>
+			</div> 
 		</div>
 	</div>
-	<!-- /.Row -->
-	
-	<!-- Row -->
-	<div class="row">
-		<!-- Panel -->
-		<div class="panel" id="bud_slideshow_panel" ng-show="showPanel || true">
-			<ng-transclude></ng-transclude>
-		</div>
-		<!-- /.Panel -->
-	</div>
-	<!-- /.Row -->
-	
 </div>
-<!-- /.SlideshowContain -->

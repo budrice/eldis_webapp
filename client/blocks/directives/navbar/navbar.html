@@ -1,23 +1,19 @@
-<style parse-style>
+<!--<style parse-style>
 	li a.bar_class {
-		background-color: {{ css.backcolor }};
 		color: {{ css.charcolor }};
 	}
 	li a.bar_class:visited {
-		background-color: {{ css.backcolor }};
 		color: {{ css.charcolor }};
 	}
 	li a.bar_class:hover {
-		background-color: {{ css.backhover }};
 		color: {{ css.charhover }};
 	}
 	li a.bar_class:focus {
-		background-color: {{ css.backhover }};
 		color: {{ css.charhover }};
 	}
     nav.navbar {
-        background-color: {{ css.backcolor }};
-        color: {{ css.backcolor }};
+        background: {{ css.backcolor }};
+        color: {{ css.charcolor }};
     }
 	a span.navbar-title {
 		color: {{ css.charcolor }};
@@ -31,37 +27,26 @@
 	a span.navbar-title:focus {
 		color: {{ css.charhover }};
 	}
-</style>
+</style>-->
 <!-- Navigation -->
-<nav class="navbar navbar-fixed-top" id="budnavbar" role="navigation" ng-hide="current_location">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#eldis_webapp_nav_collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href ng-click="view('home')">
-			<div class="navbar-img-icon">
-				<img ng-src="{{navbarIcon}}" alt="{{navbarIconAlt}}" width="35" height="35">&nbsp;&nbsp;&nbsp;&nbsp;
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark" id="budnavbar">
+		<div class="container">
+			<span class="navbar-brand">{{navTitle}}</span>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div id="navbarNavDropdown" class="dropdown navbar-collapse collapse justify-content-end">
+				<ul class="navbar-nav mr-auto" ng-class="hiddenCss">
+					<li class="nav-item" ng-repeat="link in links">
+						<a class="bar_class nav-link" href ng-click="view(link.hash)"><strong>{{link.label}}</strong></a>
+					</li>
+				</ul>
+				<span class="right navbar-text">Welcome {{username}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				<ul class="right navbar-nav">
+					<li class="nav-item">
+						<button class="btn btn-info nav-link" href ng-click="logout()">Logout</button>
+					</li>
+				</ul>
 			</div>
-			<span class="navbar-title">{{navTitle}}</span>
-			</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="eldis_webapp_nav_collapse">
-            
-            <ul class="nav navbar-nav navbar-right">
-                <li ng-repeat="link in links">
-                    <a class="bar_class" href ng-click="view(link.hash)"><strong>{{link.label}}</strong></a>
-                </li>
-
-            </ul>
-            
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
+		</div>
+    </nav>

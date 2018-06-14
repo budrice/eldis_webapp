@@ -5,8 +5,8 @@
     angular.module('app')
     .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$scope', 'AppService', 'msgbox', '$location'];
-    function LoginController($scope, AppService, msgbox, $location) {
+    LoginController.$inject = ['$scope', 'AppService', 'msgbox', '$location', '$window'];
+    function LoginController($scope, AppService, msgbox, $location, $window) {
         
         $scope.model = {};
         
@@ -25,6 +25,7 @@
                     }
                     else {
                         $location.path('/home/');
+                        $window.location.reload();
                     }
                     $scope.$apply();
                 }
@@ -67,8 +68,10 @@
             }
         };
         
-        $scope.userSearch = (arg_key, arg_value = [])=> {
-            if (arg_value.length > 0) {
+        $scope.userSearch = (arg_key, arg_value = null)=> {
+            console.log(arg_key);
+            console.log(arg_value);
+            if (arg_value !==null) {
                 AppService.BasicSearch('authentication', arg_key, arg_value)
                 .then((result)=> {
                     if (result.data.length > 0) {

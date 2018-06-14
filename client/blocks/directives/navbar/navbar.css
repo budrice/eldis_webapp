@@ -1,5 +1,5 @@
 nav#budnavbar {
-	border-bottom: 1px solid #fff;
+	border-bottom: 2px solid #6b7177;
 }
 nav#budnavbar div.container {
 	max-width: 1012px;
@@ -7,4 +7,15 @@ nav#budnavbar div.container {
 .navbar-img-icon {
 	float: left;
 	margin: -7px;
+}
+@media (min-width:769px) {
+	div.dropdown:hover > .dropdown-menu {
+	  display:block;
+	}
+	div.dropdown > .dropdown-menu {
+	  display:none;
+	}
+}
+.right {
+	float: right;
 }

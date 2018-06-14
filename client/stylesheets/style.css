@@ -3,11 +3,21 @@ body {
 	font-size: 12px;
 	font-weight: 100;
 	color: #fff;
-	background-color: #000;
-	background-image: url('../images/bkgspace.jpg');
+	
+	/* Carbon by Atle Mo (design), Sébastien Grosjean (code) http://lea.verou.me/css3patterns/#carbon */
+	background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+				linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+				linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+				linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+				linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+				linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+	background-color: #131313;
+	background-size: 20px 20px;
+	/* end Carbon Fiber */
+	
 	background-attachment: fixed;
-	background-size: cover;
 }
+
 #eldis_webapp_ngview {
 	overflow-y: scroll;
 }
@@ -19,17 +29,15 @@ body {
 .budbreadcrumb a,
 .budbreadcrumb a:link
 .budbreadcrumb a:visited {
-	/*font-family: 'Calibri';*/
-	font-size: 12px;
-	font-weight: 600;
+	font-size: 10px;
+	font-weight: 100;
 	text-decoration: none;
-	color: #ccc;
+	color: #9a9da0;
 }
 .budbreadcrumb a:hover,
 .budbreadcrumb a:active {
 	text-decoration: none;
 	color: #00ffff;
-	/*text-shadow: 0 0 1px #0000ff;*/
 }
 .eldis_webapp_responsive_img {
 	width: 100%;

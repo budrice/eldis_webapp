@@ -1,12 +1,16 @@
 #navsidebar {
-	width: 200px;
-	left: 20px;
-	top: 153px;
-	position: absolute;
-	z-index: 9999;
+	border: 1px solid #767676;
+	min-width: 200px;
 }
-#eldis_sig {
-	width: 200px;
-	border: 1px solid #fff;
-	margin-top: -4px;
+.navbar-brand {
+	font-size: 14px;
+	max-width: 170px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.right {
+	float: right;
+}
+div#navbarNavDropdown {
+	width: 100%;
 }

@@ -5,13 +5,27 @@
 	angular.module('app')
 	.factory('AppService', AppService);
 	
-	AppService.$inject = ['$http'];
-	function AppService($http) {
+	AppService.$inject = ['$http', '$window', '$rootScope'];
+	function AppService($http, $window, $rootScope) {
+		
+		// Events are broadcast outside the Scope Lifecycle
+		$window.onbeforeunload = ()=> {
+			let confirmation = {};
+			//let event = $rootScope.$broadcast('onBeforeUnload', confirmation);
+			update('authentication', { token: null, is_logged_in: 0 }).then(()=> {
+				$rootScope.$broadcast('onBeforeUnload', confirmation);
+				return confirmation.message;
+			});
+			//if (event.defaultPrevented) {
+			//	return confirmation.message;
+			//}
+		};
 		
 		return {
 			Register: register,
 			Login: login,
 			BasicSearch: basicSearch,
+			Update: update,
 			IsLoggedIn: isLoggedIn,
 			GetUserObject: getUserObject
 		};
@@ -22,25 +36,27 @@
 					method: 'POST',
 					url: '/api/v1/database/register',
 					data: user_object
-				}).then(function(response) {
-					resolve(response.data);
-				}, function(response) {
-					reject(response.data);
+				}).then((result)=> {
+					resolve(result);
+				}, (error)=> {
+					reject(error);
 				});
 			});
 		}
 		
 		function login(dataObj) {
             return new Promise((resolve, reject)=> {
-				let user = {};
-				user = getUserObject() || {};
 				$http({
 					method: 'POST',
 					url: '/api/v1/database/login',
 					data: dataObj
 				}).then((result)=> {
-					user.token = (result.error) ? null : result.data.token;
-					window.sessionStorage.setItem('USER_OBJ', JSON.stringify(user));
+					if (result.error) {
+						console.log(result.error);
+					}
+					else {
+						window.sessionStorage.setItem('USER_OBJ', JSON.stringify(result));
+					}
 					resolve(result);
 				}, (error)=> {
 					reject(error);
@@ -54,6 +70,25 @@
 				$http({
 					method: 'GET',
 					url: '/api/v1/database/basicsearch/' + table + '/' + key + '/' + value
+				}).then((result)=> {
+					if (result.error) {
+						reject(result);
+					}
+					else {
+						resolve(result);
+					}
+				}, (error)=> {
+					reject(error);
+				});
+			});
+		}
+		
+		function update(table, update_object) {
+			return new Promise((resolve, reject)=> {
+				$http({
+					method: 'POST',
+					url: '/api/v1/database/update',
+					data: update_object
 				}).then((result)=> {
 					if (result.error) {
 						reject(result);

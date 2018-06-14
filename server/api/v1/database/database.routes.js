@@ -31,5 +31,12 @@ router.get('/basicsearch/:table/:key/:value', (req, res)=> {
         res.json(error);
     });
 });
-
+router.post('/update', (req, res)=> {
+    query.Update(req.body.table, req.body.update)
+    .then((result)=> {
+        res.json(result);
+    }, (error)=> {
+        res.json(error);
+    });
+});
 module.exports = router;

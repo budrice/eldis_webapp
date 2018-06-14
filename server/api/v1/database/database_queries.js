@@ -58,7 +58,7 @@ module.exports = function() {
 							is_logged_in: 1,
 							token: response.token
 						};
-						update(update_object, 'authentication').then((update) => {
+						update('authentication', update_object).then((update) => {
 							if (update.error) {
 								resolve(update);
 							}
@@ -119,8 +119,7 @@ module.exports = function() {
 		return promise;
     }
 	
-	function update(update_object, table) {
-		
+	function update(table, update_object) {
 		let promise = new Promise((resolve, reject) => {
 			let id = update_object.id;
 			delete update_object.id;
@@ -149,7 +148,6 @@ module.exports = function() {
 						reject(error);
 					}
 					else {
-						console.log(result);
 						if (result.length > 0) {
 							if (result[0].password){
 								delete result[0].password;
