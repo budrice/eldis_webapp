@@ -85,7 +85,9 @@ module.exports = function() {
 			try {
 				db.query(sql, [member.id], function(error, result) {
 					if (error){
-						resolve(error);
+						let response = {};
+						response.error = error;
+						resolve(response);
 					}
 					else {
 						let response = {};
@@ -114,7 +116,6 @@ module.exports = function() {
 			catch (error) {
 				reject(error);
 			}
-
 		});
 		return promise;
     }
@@ -126,26 +127,42 @@ module.exports = function() {
 			let sql =  "UPDATE `" + table + "` ";
 				sql += "SET ? ";
 				sql += "WHERE id = " + id +";";
-			db.query(sql, update_object, function(error, result) {
-				if (error) {
-					console.log(error);
-					reject(error);
-				}
-				else {
-					resolve(result);
-				}
-			});
+			try {
+				db.query(sql, update_object, function(error, result) {
+					if (error) {
+						let response = {};
+						response.error = error;
+						resolve(response);
+					}
+					else {
+						resolve(result);
+					}
+				});
+			}
+			catch (error) {
+				reject(error);
+			}
 		});
 		return promise;
 	}
 	
 	function basicSearch(table, search_object) {
 		let promise = new Promise((resolve, reject)=> {
-			let sql = "SELECT * FROM `" + table + "` WHERE ?;";
+			let sql = "SELECT * FROM `" + table;
+			console.log(Object.keys(search_object)[0]);
+			if (Object.keys(search_object)[0] != 'null') {
+				sql += "` WHERE ?;";
+			}
+			else {
+				sql += "`;";
+			}
 			try {
+				console.log(sql);
 				db.query(sql, search_object, (error, result)=> {
 					if (error) {
-						reject(error);
+						let response = {};
+						response.error = error;
+						resolve(response);
 					}
 					else {
 						if (result.length > 0) {
@@ -184,7 +201,9 @@ module.exports = function() {
                     try {
                         db.query(sql, insert_object, function(error, result) {
                             if (error) {
-								reject(error);
+								let response = {};
+								response.error = error;
+								resolve(response);
                             }
                             else {
 								resolve(result);

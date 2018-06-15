@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module("app")
-    .config(function($routeProvider) {
+    .config(($routeProvider)=> {
         $routeProvider
         .when("/admin/", {
             templateUrl: "views/admin/admin.html",
@@ -24,9 +24,6 @@
             templateUrl: "views/technologies/technologies.html",
             controller: 'TechnologiesController',
             css: [{ href: 'views/technologies/technologies.css' }]
-        })
-        .when("/contact/", {
-            templateUrl: "views/404.html"
         })
         .when("/contact/", {
             templateUrl: "views/contact/contact.html",

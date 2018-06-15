@@ -27,7 +27,8 @@
 			BasicSearch: basicSearch,
 			Update: update,
 			IsLoggedIn: isLoggedIn,
-			GetUserObject: getUserObject
+			GetUserObject: getUserObject,
+			SendEmail: sendEmail
 		};
 		
 		function register(user_object) {
@@ -122,6 +123,26 @@
         function getUserObject(){
             return JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
         }
+		
+		
+		function sendEmail(email_object) {
+			return new Promise((resolve, reject)=> {
+				$http({
+					method: 'POST',
+					url: '/api/v1/email/send',
+					data: email_object
+				}).then((result)=> {
+					if (result.error) {
+						reject(result);
+					}
+					else {
+						resolve(result);
+					}
+				}, (error)=> {
+					reject(error);
+				});
+			});
+		}
 		
 	}
 	

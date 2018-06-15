@@ -1,26 +1,27 @@
 <div class="container" id="eldis_web_app_admin_page">
 	<div class="row">
-		<div class="panel col-lgAuto">
+		<div class="panel mx-auto">
 			<table class="table table-dark table-striped table-hover">
 				<thead>
 					<tr>
-						<th>
-							username
-						</th>
-						<th>
-							email
-						</th>
-						<th>
-							last login
-						</th>
-						<th>
-							signed up
-						</th>
-						<th>
-							access
-						</th>
+						<th>username</th>
+						<th>email</th>
+						<th>access</th>
+						<th>date joined</th>
+						<th>last login</th>
+						<th>is logged in</th>
 					</tr>
 				</thead>
+				<tbody>
+					<tr ng-repeat="user in users">
+						<td>{{ user.username }}</td>
+						<td>{{ user.email_address }}</td>
+						<td>{{ user.access_level }}</td>
+						<td>{{ user.date_join }}</td>
+						<td>{{ user.date_last_log }}</td>
+						<td>{{ (user.is_logged_in === 1) ? 'Yes': 'No' }}</td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
 	</div>

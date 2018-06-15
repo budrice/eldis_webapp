@@ -7,7 +7,6 @@
     ]);
 	app.config(['$locationProvider', ($locationProvider)=> {
         $locationProvider.hashPrefix('');
-		
     }])
 	.run(['$rootScope', 'AppService', '$location', 'msgbox', ($rootScope, AppService, $location, msgbox)=> {
 		
@@ -41,7 +40,7 @@
             return nav_array;
         };
 		
-		$rootScope.$on('$locationChangeStart', function (event, next) {
+		$rootScope.$on('$locationChangeStart', (event, next)=> {
 			let user_object = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
 			if (user_object !== null) {
 				if (user_object.data)

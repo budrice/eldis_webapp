@@ -41,10 +41,8 @@
 			});
 			
 			$scope.$on('$routeChangeStart', function($event, next) {
-				console.log('$routeChangeStart');
 				if (next) {
 					getUsername();
-					console.log($scope.username);
 					setTimeout(()=> {
 						$scope.current_location = window.location.hash === '#/login/';
 						$scope.$digest();
@@ -54,15 +52,12 @@
 			
 			function getUsername() {
 				user_object = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
-				console.log(user_object);
 				if (user_object !== null) {
 					if (user_object.data) {
 						setTimeout(()=> {
-							console.log(user_object.data.username);
 							$scope.username = user_object.data.username;
 							$scope.$digest();
 						}, 0);
-
 					}
 				}
 			}

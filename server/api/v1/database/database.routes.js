@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var Query = require('./database_queries.js');
-var query = new Query();
+let express = require('express');
+let router = express.Router();
+let Query = require('./database_queries.js');
+let query = new Query();
 
 router.post('/login', (req, res)=> {
     console.log('@route');
@@ -23,7 +23,9 @@ router.post('/register', (req, res)=> {
 });
 router.get('/basicsearch/:table/:key/:value', (req, res)=> {
     let search_object = {};
-    search_object[req.params.key] = req.params.value;
+    if (req.params.key !== null) {
+        search_object[req.params.key] = req.params.value;
+    }
     query.BasicSearch(req.params.table, search_object)
     .then((result)=> {
         res.json(result);
@@ -39,4 +41,5 @@ router.post('/update', (req, res)=> {
         res.json(error);
     });
 });
+
 module.exports = router;
