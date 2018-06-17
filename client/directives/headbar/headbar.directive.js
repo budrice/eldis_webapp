@@ -2,8 +2,7 @@
 	
 	'use strict';
 	
-	angular.module('app')
-	.directive('budHeadbar', budHeadbar);
+	angular.module('app').directive('budHeadbar', budHeadbar);
 	
 	function budHeadbar(){
 		
@@ -13,6 +12,7 @@
 			$scope.$on('$routeChangeStart', function($event, next) {
 				if (next) {
 					setTimeout(()=> {
+						// hide if login
 						$scope.current_location = window.location.hash === '#/login/';
 						$scope.$digest();
 					}, 0);
@@ -27,8 +27,8 @@
 				headbar: '='
             },
 			controller: controller,
-            templateUrl: 'blocks/directives/headbar/headbar.html',
-			css: [{ href: 'blocks/directives/headbar/headbar.css' }]
+            templateUrl: 'directives/headbar/headbar.html',
+			css: [{ href: 'directives/headbar/headbar.css' }]
 		};
 	}
 	

@@ -1,0 +1,36 @@
+<style parse-style>
+	div#budmodal_container {
+		width: {{ css.containerwidth }}
+		height: {{ css.containerheight}}
+	}
+	button.bud-modal-btn {
+		color: {{ css.charcolor }};
+		background: {{ css.btncolor }};
+	}
+	button.bud-modal-btn:visited {
+		color: {{ css.charcolor }};
+		background: {{ css.btncolor }};
+	}
+	button.bud-modal-btn:hover {
+		color: {{ css.charhover }};
+		background: {{ css.btnhover }};
+	}
+	button.bud-modal-btn:focus {
+		color: {{ css.charhover }};
+		background: {{ css.btnhover }};
+	}
+    span.budmodal-title {
+		color: {{ css.titlecolor }};
+	}
+</style>
+
+<!-- Modal -->
+<div class="budmodal container" id="budmodal_container">
+
+	<div class="mx-auto">
+		<div class="budmodal-transclude" ng-transclude ng-show="toggleModal"></div>
+	</div>
+
+</div>
+
+<div id="budmodal_background" ng-show="toggleModal" ng-click="close()"></div>

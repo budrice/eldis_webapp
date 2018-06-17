@@ -2,8 +2,8 @@
 
     'use strict';
 
-    angular.module("app")
-    .config(($routeProvider)=> {
+    angular.module("app").config(($routeProvider)=> {
+        
         $routeProvider
         .when("/admin/", {
             templateUrl: "views/admin/admin.html",

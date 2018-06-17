@@ -1,11 +1,10 @@
 let express = require('express');
 let router = express.Router();
-let Query = require('./database_queries.js');
-let query = new Query();
+let Db = require('./database_queries.js');
+let db = new Db();
 
 router.post('/login', (req, res)=> {
-    console.log('@route');
-    query.Login(req.body)
+    db.Login(req.body)
     .then((result)=> {
         console.log(result);
         res.json(result);
@@ -14,7 +13,7 @@ router.post('/login', (req, res)=> {
     });
 });
 router.post('/register', (req, res)=> {
-    query.Register(req.body)
+    db.Register(req.body)
     .then((result)=> {
         res.json(result);
     }, (error)=> {
@@ -26,7 +25,7 @@ router.get('/basicsearch/:table/:key/:value', (req, res)=> {
     if (req.params.key !== null) {
         search_object[req.params.key] = req.params.value;
     }
-    query.BasicSearch(req.params.table, search_object)
+    db.BasicSearch(req.params.table, search_object)
     .then((result)=> {
         res.json(result);
     }, (error)=> {
@@ -34,7 +33,7 @@ router.get('/basicsearch/:table/:key/:value', (req, res)=> {
     });
 });
 router.post('/update', (req, res)=> {
-    query.Update(req.body.table, req.body.update)
+    db.Update(req.body.table, req.body.id, req.body.update_object)
     .then((result)=> {
         res.json(result);
     }, (error)=> {

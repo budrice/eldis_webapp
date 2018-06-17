@@ -1,0 +1,16 @@
+div#budmodal_background {
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	position: absolute;
+	background: rgba(0, 0, 0, .85);
+	z-index: 99999;
+}
+div#budmodal_container {
+	top: 20%;
+	left: 35%;
+	z-index: 999999;
+	position: absolute;
+	width: 300px;
+}

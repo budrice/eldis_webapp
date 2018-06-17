@@ -2,11 +2,11 @@ let nodemailer = require('nodemailer');
 let config = require('./../../../config/config.json');
 
 let transporter = nodemailer.createTransport({
-  service: config.email_service,
-  auth: {
-    user: config.email_service_address,
-    pass: config.email_service_password
-  }
+	service: config.email_service,
+	auth: {
+		user: config.email_service_address,
+		pass: config.email_service_password
+	}
 });
 
 

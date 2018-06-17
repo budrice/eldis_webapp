@@ -84,12 +84,18 @@
 			});
 		}
 		
-		function update(table, update_object) {
+		function update(table, id, update_object) {
 			return new Promise((resolve, reject)=> {
+				let pack = {
+					table: table,
+					id: id,
+					update_object: update_object
+				};
+				console.log(pack);
 				$http({
 					method: 'POST',
 					url: '/api/v1/database/update',
-					data: update_object
+					data: pack
 				}).then((result)=> {
 					if (result.error) {
 						reject(result);

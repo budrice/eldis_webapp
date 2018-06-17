@@ -2,13 +2,12 @@
 	
 	'use strict';
 	
-	angular.module('app')
-	.directive('budCarousel', budCarousel);
-	
+	angular.module('app').directive('budCarousel', budCarousel);
 	function budCarousel(){
 		
 		controller.$inject = ['$scope'];
 		function controller($scope) {
+			// set interval
 			$('.carousel').carousel({
 			  interval: $scope.interval
 			});
@@ -18,13 +17,11 @@
             restrict: 'EA',
             scope: {
                 carouselArray: '=',
-				interval: '=',
-				stopInterval: '='
+				interval: '='
             },
 			controller: controller,
-            templateUrl: 'blocks/directives/carousel/carousel.html',
-			transclude: true,
-			css: [{href: 'blocks/directives/carousel/carousel.css'}]
+            templateUrl: 'directives/carousel/carousel.html',
+			css: [{href: 'directives/carousel/carousel.css'}]
 		};
 	}
 	

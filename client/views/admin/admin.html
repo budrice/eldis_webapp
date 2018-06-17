@@ -13,7 +13,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="user in users">
+					<tr ng-repeat="user in users" href ng-click="toggleModal(user)">
 						<td>{{ user.username }}</td>
 						<td>{{ user.email_address }}</td>
 						<td>{{ user.access_level }}</td>
@@ -26,3 +26,17 @@
 		</div>
 	</div>
 </div>
+
+<div bud-modal toggle-modal="toggle">
+	<div class="panel p-3">
+		<form name="adminForm">
+			<label for="">Username</label>
+			<input type="text" class="form-control" ng-model="admin.username" ng-blur="update(adminForm, admin)" required><br>
+			<label for="">Email Address</label>
+			<input type="email" class="form-control" ng-model="admin.email_address" ng-blur="updateadminForm, admin)" required><br>
+			<label for="">Access Level</label>
+			<input type="number" class="form-control" ng-model="admin.access_level" ng-blur="update(adminForm, admin)" required><br>
+		</form>
+	</div>
+</div>
+

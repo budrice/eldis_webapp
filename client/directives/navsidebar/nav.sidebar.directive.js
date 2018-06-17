@@ -2,8 +2,7 @@
 	
 	'use strict';
 	
-	angular.module('app')
-	.directive('budNavSidebar', budNavSidebar);
+	angular.module('app').directive('budNavSidebar', budNavSidebar);
 	
 	function budNavSidebar(){
 		
@@ -11,12 +10,11 @@
 		function controller($scope, $location, $window) {
 			
 			let user_object = {};
-			
 			$scope.sidebars = [];
-			
 			let array = [];
 			$scope.sidebars = angular.copy(array.getDefaultNavLinks());
 			
+			// hide if login
 			if (window.location.hash === '#/login/') {
 				$scope.current_location = true;
 			}
@@ -24,6 +22,10 @@
 				$scope.current_location = false;
 			}
 			
+			/**
+			 * view
+			 * @param {String} hash
+			 */
 			$scope.view = (hash)=> {
 				$location.path('/' + hash + '/');
 			};
@@ -36,13 +38,10 @@
 				$window.location.reload();
 			};
 			
-			$scope.$watch('bsgridClass', (event, value)=> {
-				$scope.bsgrid = value;
-			});
-			
+			// 
 			$scope.$on('$routeChangeStart', function($event, next) {
 				if (next) {
-					getUsername();
+					//getUsername();
 					setTimeout(()=> {
 						$scope.current_location = window.location.hash === '#/login/';
 						$scope.$digest();
@@ -75,12 +74,11 @@
             scope: {
 				navTitle: '@',
 				navbarIcon: '@',
-				navbarIconAlt: '@',
-                bsgridClass: '@'
+				navbarIconAlt: '@'
             },
 			controller: controller,
-            templateUrl: 'blocks/directives/navsidebar/nav.sidebar.html',
-			css: [{ href: 'blocks/directives/navsidebar/nav.sidebar.css' }]
+            templateUrl: 'directives/navsidebar/nav.sidebar.html',
+			css: [{ href: 'directives/navsidebar/nav.sidebar.css' }]
 		};
 	}
 	

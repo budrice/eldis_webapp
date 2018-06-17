@@ -17,11 +17,15 @@ body {
 	
 	background-attachment: fixed;
 }
+input[type=text] {
+	color: #000;
+}
 .jumbotron,
 .panel {
 	background-color: #343a40;
 	border: 1px solid #767676;
 }
+
 #eldis_webapp_ngview {
 	overflow-y: scroll;
 }

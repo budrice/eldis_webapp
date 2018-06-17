@@ -54,11 +54,10 @@ module.exports = function() {
 							token: genToken(result.id)
 						};
 						let update_object = {
-							id: result.id,
 							is_logged_in: 1,
 							token: response.token
 						};
-						update('authentication', update_object).then((update) => {
+						update('authentication', result.id, update_object).then((update) => {
 							if (update.error) {
 								resolve(update);
 							}
@@ -94,6 +93,8 @@ module.exports = function() {
 						if (result.length > 0) {
 							if (bcrypt.compareSync(member.password, result[0].password)) {
 								response.result = {};
+								delete result[0].password;
+								delete result[0].reg_code;
 								response = result[0];
 								response.token = (result[0].access_level > 2) ? genToken(result[0].id) : null;
 								resolve(response);
@@ -120,10 +121,8 @@ module.exports = function() {
 		return promise;
     }
 	
-	function update(table, update_object) {
+	function update(table, id, update_object) {
 		let promise = new Promise((resolve, reject) => {
-			let id = update_object.id;
-			delete update_object.id;
 			let sql =  "UPDATE `" + table + "` ";
 				sql += "SET ? ";
 				sql += "WHERE id = " + id +";";
@@ -149,7 +148,6 @@ module.exports = function() {
 	function basicSearch(table, search_object) {
 		let promise = new Promise((resolve, reject)=> {
 			let sql = "SELECT * FROM `" + table;
-			console.log(Object.keys(search_object)[0]);
 			if (Object.keys(search_object)[0] != 'null') {
 				sql += "` WHERE ?;";
 			}
@@ -157,7 +155,6 @@ module.exports = function() {
 				sql += "`;";
 			}
 			try {
-				console.log(sql);
 				db.query(sql, search_object, (error, result)=> {
 					if (error) {
 						let response = {};
@@ -165,12 +162,11 @@ module.exports = function() {
 						resolve(response);
 					}
 					else {
+						let cleaned = [];
 						if (result.length > 0) {
-							if (result[0].password){
-								delete result[0].password;
-							}
+							cleaned = cleanPasswords(result);
 						}
-						resolve(result);
+						resolve(cleaned);
 					}
 				});
 			}
@@ -240,4 +236,16 @@ function genToken(id) {
 function expiresIn(numDays) {
     var dateObj = new Date();
     return dateObj.setDate(dateObj.getDate() + numDays);
+}
+
+function cleanPasswords(db_array) {
+	db_array.forEach((dataset, i, array)=> {
+		if (dataset.password) {
+			delete array[i].password;
+		}
+		if (dataset.reg_code) {
+			delete array[i].reg_code;
+		}
+	});
+	return db_array;
 }

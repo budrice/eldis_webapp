@@ -2,33 +2,44 @@
 	
 	'use strict';
 	
-	angular.module('app')
-	.directive('budBreadcrumbs', budBreadcrumbs);
+	angular.module('app').directive('budBreadcrumbs', budBreadcrumbs);
 	
 	function budBreadcrumbs(){
 		
 		controller.$inject = ['$scope', '$location'];
 		function controller($scope, $location) {
 			
-			$scope.bread = [{ hash: 'login', label: 'Login' }];
+			$scope.bread = [];
 			
-			let userObj = {};
-			userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
+			let user_object = {};
+			user_object = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
 			
+			/**
+			 * view
+			 * @param {String} hash
+			 */
 			$scope.view = (hash)=> {
 				$location.path ('/' + hash + '/');
 			};
 			
+			/**
+			 * updateCrumbs
+			 * @param {String} hash_str
+			 */
 			function updateCrumbs(hash_str) {
+				user_object = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
 				if (hash_str == 'login') {
-					setTimeout(()=> {
-						userObj.bread = [{ hash: 'login', label: 'Login' }];
-						window.sessionStorage.setItem('USER_OBJ', JSON.stringify(userObj));
-						$scope.$digest();
-					}, 0);
+					if (user_object !== null) {
+						setTimeout(()=> {
+							user_object.bread = [];
+							window.sessionStorage.setItem('USER_OBJ', JSON.stringify(user_object));
+							$scope.$digest();
+						}, 0);
+					}
+					$scope.bread = [];
 				}
 				else {
-					if (hash_str === '') { hash_str = 'home'; }
+					hash_str = (hash_str === '') ? hash_str = 'home' : hash_str;
 					let pos = $scope.bread.map((e)=> { return e.hash; }).indexOf(hash_str);
 					setTimeout(()=> {
 						if (pos >= 0) {
@@ -41,19 +52,22 @@
 							});
 							$scope.$digest();
 						}
-						userObj = JSON.parse(window.sessionStorage.getItem('USER_OBJ'));
-						userObj.bread = [];
-						userObj.bread = $scope.bread;
-						window.sessionStorage.setItem('USER_OBJ', JSON.stringify(userObj));
+						user_object.bread = [];
+						user_object.bread = $scope.bread;
+						window.sessionStorage.setItem('USER_OBJ', JSON.stringify(user_object));
 						$scope.$digest();
 					}, 0);
 				}
 			}
 			
+			/**
+			 * getBreadcrumbs
+			 */
 			function getBreadcrumbs() {
-				$scope.bread = userObj.bread;
+				$scope.bread = user_object.bread;
 			}
 			
+			// event handler to get hash from route
 			$scope.$on('$routeChangeStart', function($event, next) {
 				if (next) {
 					let len = next.$$route.originalPath.length;
@@ -64,13 +78,11 @@
 			
 			init();
 			function init() {
-				if (userObj !== null) {
-					if (window.location.hash === '#/login/') {
-						updateCrumbs('login');
-					}
-					else {
-						getBreadcrumbs();
-					}
+				if (window.location.hash === '#/login/') {
+					updateCrumbs('login');
+				}
+				else {
+					getBreadcrumbs();
 				}
 			}
 		}
@@ -82,8 +94,8 @@
 				pageChangeEvent: '='
             },
 			controller: controller,
-            templateUrl: 'blocks/directives/breadcrumbs/breadcrumbs.html',
-			css: [{ href: 'blocks/directives/breadcrumbs/breadcrumbs.css' }]
+            templateUrl: 'directives/breadcrumbs/breadcrumbs.html',
+			css: [{ href: 'directives/breadcrumbs/breadcrumbs.css' }]
 		};
 	}
 	

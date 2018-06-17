@@ -1,0 +1,52 @@
+<!--<style parse-style>
+	li a.bar_class {
+		color: {{ css.charcolor }};
+	}
+	li a.bar_class:visited {
+		color: {{ css.charcolor }};
+	}
+	li a.bar_class:hover {
+		color: {{ css.charhover }};
+	}
+	li a.bar_class:focus {
+		color: {{ css.charhover }};
+	}
+    nav.navbar {
+        background: {{ css.backcolor }};
+        color: {{ css.charcolor }};
+    }
+	a span.navbar-title {
+		color: {{ css.charcolor }};
+	}
+	a span.navbar-title:visited {
+		color: {{ css.charcolor }};
+	}
+	a span.navbar-title:hover {
+		color: {{ css.charhover }};
+	}
+	a span.navbar-title:focus {
+		color: {{ css.charhover }};
+	}
+</style>-->
+<!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark" id="budnavbar">
+		<div class="container">
+			<span class="navbar-brand">{{navTitle}}</span>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div id="navbarNavDropdown" class="dropdown navbar-collapse collapse justify-content-end">
+				<ul class="navbar-nav mr-auto" ng-class="hiddenCss">
+					<li class="nav-item" ng-repeat="link in links">
+						<a class="bar_class nav-link" href ng-click="view(link.hash)"><strong>{{link.label}}</strong></a>
+					</li>
+				</ul>
+				<span class="right navbar-text">Welcome {{username}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				<ul class="right navbar-nav">
+					<li class="nav-item">
+						<button class="btn btn-info nav-link" href ng-click="logout()">Logout</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+    </nav>
