@@ -22,13 +22,13 @@ module.exports = function() {
         Login: login,
         Register: register,
 		Update: update,
-		BasicSearch: basicSearch
+		Search: search
     };
     
     function login(member) {
-		let promise = new Promise((resolve, reject) => {
+		return new Promise((resolve, reject)=> {
 			let response = {};
-			validate(member).then((result) => {
+			validate(member).then((result)=> {
 				if (result.error) {
 					resolve(result);
 				}
@@ -71,7 +71,6 @@ module.exports = function() {
 				}
 			});
 		});
-		return promise;
     }
 	
     function validate(member) {
@@ -122,7 +121,7 @@ module.exports = function() {
     }
 	
 	function update(table, id, update_object) {
-		let promise = new Promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
 			let sql =  "UPDATE `" + table + "` ";
 				sql += "SET ? ";
 				sql += "WHERE id = " + id +";";
@@ -142,40 +141,106 @@ module.exports = function() {
 				reject(error);
 			}
 		});
-		return promise;
 	}
 	
-	function basicSearch(table, search_object) {
-		let promise = new Promise((resolve, reject)=> {
-			let sql = "SELECT * FROM `" + table;
-			if (Object.keys(search_object)[0] != 'null') {
-				sql += "` WHERE ?;";
-			}
-			else {
-				sql += "`;";
-			}
-			try {
-				db.query(sql, search_object, (error, result)=> {
-					if (error) {
-						let response = {};
-						response.error = error;
-						resolve(response);
+	function search(table, search_object) {
+		
+		return new Promise((resolve, reject)=> {
+			showColumns(table, (error)=> { reject(error); })
+			.then(buildQuery, (error)=> { reject(error); })
+			.then(select, (error)=> { reject(error); })
+			.then((result)=> { resolve(result); }, (error)=> { reject(error); });
+		});
+		
+		function showColumns(table) {
+			return new Promise((resolve, reject)=> {
+				let sql = "SHOW COLUMNS FROM " + table + ";";
+				try {
+					db.query(sql, (error, result)=> {
+						if (error) {
+							let response = {};
+							response.error = error;
+							resolve(response);
+						}
+						else {
+							resolve(result);
+						}
+					});
+				}
+				catch (error) {
+					reject(error);
+				}
+			});
+		}
+		
+		function buildQuery(col_props) {
+			return new Promise((resolve)=> {
+				let where_str = '';
+				Object.keys(search_object).forEach((key)=> {
+					let field_type = findFieldType(col_props, key);
+					where_str += (where_str.length > 0) ? where_str + ", " :  "WHERE (";
+					if (field_type == 'blob' ||
+						field_type == 'char' ||
+						field_type == 'date' ||
+						field_type == 'datetime' ||
+						field_type == 'text' ||
+						field_type == 'timestamp' ||
+						field_type.startsWith('varchar') ||
+						field_type == 'year') {
+						where_str += key + "='" + search_object[key] + "'";
 					}
 					else {
-						let cleaned = [];
-						if (result.length > 0) {
-							cleaned = cleanPasswords(result);
-						}
-						resolve(cleaned);
+						where_str += key + "=" + search_object[key];
 					}
+					
 				});
-			}
-			catch (error) {
-				reject(error);
-			}
-		});
-		return promise;
+				let query = "SELECT * FROM " + table + " " + where_str + ");";
+				resolve(query);
+			});
+				
+		}
+		
+		function select(sql_query) {
+			
+			console.log(sql_query);
+			
+			return new Promise((resolve, reject)=> {
+				let response = {};
+				try {
+					db.query(sql_query, (error, result)=> {
+						if (error) {
+							response.error = 'Server Error: ' + error;
+							resolve(response);
+						}
+						else {
+							console.log(result);
+							let cleaned = cleanPasswords(result);
+							resolve(cleaned);
+						}
+					});
+				}
+				catch (error) {
+					reject(error);
+				}
+				
+			});
+			
+		}
+		
+		function findFieldType(properties, field) {
+            let response = null;
+            let fndFld = function(data) {
+                return data.Field == field;
+            };
+            let i = properties.findIndex(fndFld);
+            if (i >= 0) {
+                response = properties[i].Type;
+            }
+            return response;
+        }
+		
 	}
+	
 	
 	/**
 	 * register
@@ -215,6 +280,27 @@ module.exports = function() {
 		return promise;
     }
 	
+	//function showColumns(table) {
+	//	return new Promise((resolve, reject)=> {
+	//		let sql = "SHOW COLUMNS FROM " + table + ";";
+	//		try {
+	//			db.query(sql, (error, result)=> {
+	//				if (error) {
+	//					let response = {};
+	//					response.error = error;
+	//					resolve(response);
+	//				}
+	//				else {
+	//					resolve(result);
+	//				}
+	//			});
+	//		}
+	//		catch (error) {
+	//			reject(error);
+	//		}
+	//	});
+	//}
+	
 };
 // private method
 function genToken(id) {
@@ -249,3 +335,33 @@ function cleanPasswords(db_array) {
 	});
 	return db_array;
 }
+
+//function whereValues(object) {
+//	let where_array = [];
+//	let temp_object = {};
+//	Object.keys(object).forEach((key)=> {
+//		
+//		if (isNaN(object[key]))
+//		
+//		temp_object[key] = object[key];
+//		where_array.push(temp_object);
+//	});
+//	return where_array;
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

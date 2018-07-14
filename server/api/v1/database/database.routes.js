@@ -25,7 +25,7 @@ router.get('/basicsearch/:table/:key/:value', (req, res)=> {
     if (req.params.key !== null) {
         search_object[req.params.key] = req.params.value;
     }
-    db.BasicSearch(req.params.table, search_object)
+    db.Search(req.params.table, search_object)
     .then((result)=> {
         res.json(result);
     }, (error)=> {

@@ -31,6 +31,8 @@
 				date_fields.forEach((field)=> {
 					search_result[field] = $filter('date')(new Date(data_row[field]), 'MM/dd/yyyy h:mm a');
 				});
+				console.log(data_row.remove);
+				data_row.remove = (data_row.remove === 1) ? true : false;
 				resolve(search_result);
 			});
 		}
@@ -48,6 +50,7 @@
 		};
 		
 		$scope.update = (form, update_object)=> {
+			update_object.remove = (update_object.remove) ? 1 : 0;
 			let id = angular.copy(update_object.id);
 			delete update_object.id;
 			delete update_object.date_join;
